@@ -11,6 +11,7 @@
 		0401C5742C96719A00D002E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401C5732C96719A00D002E1 /* ContentView.swift */; };
 		0401C5762C96719B00D002E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0401C5752C96719B00D002E1 /* Assets.xcassets */; };
 		0401C5792C96719B00D002E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0401C5782C96719B00D002E1 /* Preview Assets.xcassets */; };
+		049FAFC12C9934160085E881 /* DetailCoffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049FAFC02C9934160085E881 /* DetailCoffee.swift */; };
 		04B3FC272C990F8F0042E286 /* SummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC262C990F8F0042E286 /* SummaryCard.swift */; };
 		04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */; };
 		04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC302C99192C0042E286 /* GraphCaffeine.swift */; };
@@ -26,6 +27,7 @@
 		0401C5732C96719A00D002E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0401C5752C96719B00D002E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0401C5782C96719B00D002E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		049FAFC02C9934160085E881 /* DetailCoffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoffee.swift; sourceTree = "<group>"; };
 		04B3FC262C990F8F0042E286 /* SummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCard.swift; sourceTree = "<group>"; };
 		04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCoffeeCard.swift; sourceTree = "<group>"; };
 		04B3FC302C99192C0042E286 /* GraphCaffeine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCaffeine.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */,
 				04B3FC302C99192C0042E286 /* GraphCaffeine.swift */,
 				04B3FC322C991EAF0042E286 /* DashboardView.swift */,
+				049FAFC02C9934160085E881 /* DetailCoffee.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				04B3FC332C991EAF0042E286 /* DashboardView.swift in Sources */,
 				04B3FC392C9928710042E286 /* CoffeeView.swift in Sources */,
 				0401C5742C96719A00D002E1 /* ContentView.swift in Sources */,
+				049FAFC12C9934160085E881 /* DetailCoffee.swift in Sources */,
 				04D39AAA2C97C65700B12E01 /* consumptionLogPage.swift in Sources */,
 				04D39AAE2C97DE1700B12E01 /* historyList.swift in Sources */,
 				0401C5722C96719A00D002E1 /* brewCoffeeApp.swift in Sources */,
