@@ -6,16 +6,24 @@
 //
 
 import SwiftUI
+import Charts
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, new world!")
+        TabView {
+            DashboardView()
+            .tabItem {
+                Image(systemName: "house")
+                Text("Dashboard")
+            }
+            
+            
+            CoffeeView()
+            .tabItem {
+                Image(systemName: "cup.and.saucer.fill")
+                Text("Coffee")
+            }
         }
-        .padding()
     }
 }
 

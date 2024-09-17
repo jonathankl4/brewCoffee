@@ -70,14 +70,9 @@ struct consumptionLogPage: View {
                                 }
                             }
                             .cornerRadius(10)
-
                 }
             }
             .padding(3)
-            
-                            
- 
-            
         }
         .padding(20)
         
@@ -89,18 +84,11 @@ struct summary: View {
     let tgl : String
     let desc :String
     var body: some View {
-        
-        
-            
-            
-            VStack(alignment: .leading){
-                Text(tgl).bold().font(.system(size: 18))
-                Text(desc)
-            }
-            .padding(.leading, -160.0)
-        
-        
-        
+    VStack(alignment: .leading){
+        Text(tgl).bold().font(.system(size: 18))
+        Text(desc)
+    }
+    .padding(.leading, -160.0)
     }
 }
 
