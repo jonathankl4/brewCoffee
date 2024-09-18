@@ -17,6 +17,7 @@
 		04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC302C99192C0042E286 /* GraphCaffeine.swift */; };
 		04B3FC332C991EAF0042E286 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC322C991EAF0042E286 /* DashboardView.swift */; };
 		04B3FC392C9928710042E286 /* CoffeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC382C9928710042E286 /* CoffeeView.swift */; };
+		04B3FC3D2C99D2E40042E286 /* CoffeeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC3C2C99D2E40042E286 /* CoffeeCard.swift */; };
 		04D39AAA2C97C65700B12E01 /* consumptionLogPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D39AA92C97C65700B12E01 /* consumptionLogPage.swift */; };
 		04D39AAE2C97DE1700B12E01 /* historyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D39AAD2C97DE1700B12E01 /* historyList.swift */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 		04B3FC302C99192C0042E286 /* GraphCaffeine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCaffeine.swift; sourceTree = "<group>"; };
 		04B3FC322C991EAF0042E286 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		04B3FC382C9928710042E286 /* CoffeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeView.swift; sourceTree = "<group>"; };
+		04B3FC3C2C99D2E40042E286 /* CoffeeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCard.swift; sourceTree = "<group>"; };
 		04D39AA92C97C65700B12E01 /* consumptionLogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consumptionLogPage.swift; sourceTree = "<group>"; };
 		04D39AAD2C97DE1700B12E01 /* historyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,7 +96,6 @@
 				04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */,
 				04B3FC302C99192C0042E286 /* GraphCaffeine.swift */,
 				04B3FC322C991EAF0042E286 /* DashboardView.swift */,
-				049FAFC02C9934160085E881 /* DetailCoffee.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -102,7 +103,9 @@
 		04B3FC372C9928610042E286 /* Coffee */ = {
 			isa = PBXGroup;
 			children = (
+				049FAFC02C9934160085E881 /* DetailCoffee.swift */,
 				04B3FC382C9928710042E286 /* CoffeeView.swift */,
+				04B3FC3C2C99D2E40042E286 /* CoffeeCard.swift */,
 			);
 			path = Coffee;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				049FAFC12C9934160085E881 /* DetailCoffee.swift in Sources */,
 				04D39AAA2C97C65700B12E01 /* consumptionLogPage.swift in Sources */,
 				04D39AAE2C97DE1700B12E01 /* historyList.swift in Sources */,
+				04B3FC3D2C99D2E40042E286 /* CoffeeCard.swift in Sources */,
 				0401C5722C96719A00D002E1 /* brewCoffeeApp.swift in Sources */,
 				04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */,
 				04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */,

@@ -9,7 +9,23 @@ import SwiftUI
 
 struct CoffeeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                NavigationLink {
+                    DetailCoffee()
+                } label: {
+                    CoffeeCard(img: "arabica", name: "Arabica")
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Coffee")
+                        .font(.system(size: 25))
+                        .bold()
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 

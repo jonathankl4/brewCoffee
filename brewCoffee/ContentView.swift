@@ -9,6 +9,11 @@ import SwiftUI
 import Charts
 
 struct ContentView: View {
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(named: "hijau")
+        UITabBar.appearance().barTintColor = UIColor.cokelatMuda
+        UITabBar.appearance().backgroundColor = UIColor(named: "cokelatMuda")
+    }
     var body: some View {
         TabView {
             DashboardView()
@@ -24,6 +29,7 @@ struct ContentView: View {
                     Text("Coffee")
                 }
         }
+        .accentColor(Color.warnacoklat)
     }
 }
 

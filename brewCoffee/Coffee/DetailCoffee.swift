@@ -36,6 +36,7 @@ struct DetailCoffee: View {
             .navigationTitle("Detail Coffee")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
