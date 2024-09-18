@@ -22,6 +22,8 @@
 		04B3FC412C9A95250042E286 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 04B3FC402C9A95250042E286 /* .gitignore */; };
 		04D39AAA2C97C65700B12E01 /* consumptionLogPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D39AA92C97C65700B12E01 /* consumptionLogPage.swift */; };
 		04D39AAE2C97DE1700B12E01 /* historyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D39AAD2C97DE1700B12E01 /* historyList.swift */; };
+		04FBDB622C9A999D00F3DC3E /* splashscreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBDB612C9A999D00F3DC3E /* splashscreen.swift */; };
+		04FBDB662C9A9AE400F3DC3E /* kucing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04FBDB652C9A9AE400F3DC3E /* kucing.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		04B3FC402C9A95250042E286 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		04D39AA92C97C65700B12E01 /* consumptionLogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consumptionLogPage.swift; sourceTree = "<group>"; };
 		04D39AAD2C97DE1700B12E01 /* historyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyList.swift; sourceTree = "<group>"; };
+		04FBDB612C9A999D00F3DC3E /* splashscreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashscreen.swift; sourceTree = "<group>"; };
+		04FBDB652C9A9AE400F3DC3E /* kucing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = kucing.gif; path = ../../../../../Downloads/kucing.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 		0401C5702C96719A00D002E1 /* brewCoffee */ = {
 			isa = PBXGroup;
 			children = (
+				04FBDB602C9A998600F3DC3E /* splash */,
 				04B3FC372C9928610042E286 /* Coffee */,
 				04B3FC202C990E180042E286 /* Dashboard */,
 				0401C5712C96719A00D002E1 /* brewCoffeeApp.swift */,
@@ -114,6 +119,15 @@
 				04B3FC3C2C99D2E40042E286 /* CoffeeCard.swift */,
 			);
 			path = Coffee;
+			sourceTree = "<group>";
+		};
+		04FBDB602C9A998600F3DC3E /* splash */ = {
+			isa = PBXGroup;
+			children = (
+				04FBDB612C9A999D00F3DC3E /* splashscreen.swift */,
+				04FBDB652C9A9AE400F3DC3E /* kucing.gif */,
+			);
+			path = splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +191,7 @@
 				0401C5792C96719B00D002E1 /* Preview Assets.xcassets in Resources */,
 				04B3FC412C9A95250042E286 /* .gitignore in Resources */,
 				0401C5762C96719B00D002E1 /* Assets.xcassets in Resources */,
+				04FBDB662C9A9AE400F3DC3E /* kucing.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +213,7 @@
 				0401C5722C96719A00D002E1 /* brewCoffeeApp.swift in Sources */,
 				04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */,
 				04B3FC3F2C9A6E6B0042E286 /* HistoryLogView.swift in Sources */,
+				04FBDB622C9A999D00F3DC3E /* splashscreen.swift in Sources */,
 				04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
