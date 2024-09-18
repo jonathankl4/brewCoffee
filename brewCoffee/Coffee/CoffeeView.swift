@@ -16,6 +16,21 @@ struct CoffeeView: View {
                 } label: {
                     CoffeeCard(img: "arabica", name: "Arabica")
                 }
+                .listRowSeparator(.hidden)
+                
+                NavigationLink {
+                    DetailCoffee()
+                } label: {
+                    CoffeeCard(img: "arabica", name: "Arabica")
+                }
+                .listRowSeparator(.hidden)
+                
+                NavigationLink {
+                    DetailCoffee()
+                } label: {
+                    CoffeeCard(img: "arabica", name: "Arabica")
+                }
+                .listRowSeparator(.hidden)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

@@ -67,10 +67,19 @@ struct DashboardView: View {
                         CurrentCoffeeCard(name: "Mocha Latte", time: "11.47 a.m", jml: "68 mg")
                         
                     }
-                    Text("Log Detail")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .foregroundColor(.brown)
+                    
+                    Button(action: {
+                        showLogDetail = true
+                    }, label: {
+                        Text("Log Detail")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .foregroundColor(.brown)
+                    })
+                    .sheet (isPresented: $showLogDetail) {
+                        HistoryLogView()
+                    }
+                    
                 }
                 .padding()
                 .navigationTitle("Dashboard")
@@ -115,6 +124,7 @@ struct NotificationSettingsView: View {
                     Button("Done") {
                         showSheet = false
                     }
+                    .foregroundColor(Color.warnacoklat)
                 }
             }
         }
@@ -138,6 +148,7 @@ struct AddRecordModalView: View {
                     Button("Done") {
                         showAddRecord = false
                     }
+                    .foregroundColor(Color.warnacoklat)
                 }
             }
         }
