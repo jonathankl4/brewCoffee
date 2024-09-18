@@ -58,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				0401C5702C96719A00D002E1 /* brewCoffee */,
+				04B3FC402C9A95250042E286 /* .gitignore */,
 				0401C56F2C96719A00D002E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,7 +80,6 @@
 				0401C5732C96719A00D002E1 /* ContentView.swift */,
 				04D39AA92C97C65700B12E01 /* consumptionLogPage.swift */,
 				0401C5752C96719B00D002E1 /* Assets.xcassets */,
-				04B3FC402C9A95250042E286 /* .gitignore */,
 				0401C5772C96719B00D002E1 /* Preview Content */,
 			);
 			path = brewCoffee;
