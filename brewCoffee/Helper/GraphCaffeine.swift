@@ -20,19 +20,22 @@ struct GraphCaffeine: View {
     var body: some View {
         Chart {
             ForEach(data, id: \.0) { month, sales in
-                LineMark(
+                BarMark(
                     x: .value("Month", month),
                     y: .value("Sales", sales)
                 )
-                .foregroundStyle(.blue) // Warna garis
-                .symbol(Circle()) // Simbol di titik data
+                .foregroundStyle(Color.warnacoklat)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .symbol(Circle())
             }
         }
-        .frame(height: 300) // Ukuran chart
+        .chartScrollableAxes(.horizontal)
+        .chartXVisibleDomain(length: 4)
+        .frame(height: 300)
         .padding()
-        .chartYScale(domain: 0...500) // Menentukan rentang sumbu Y
+        .chartYScale(domain: 0...500)
         .chartYAxis {
-            AxisMarks(position: .leading, values: .stride(by: 50)) // Menampilkan angka di sisi kiri sumbu Y
+            AxisMarks(position: .leading, values: .stride(by: 50))
         }
     }
 }

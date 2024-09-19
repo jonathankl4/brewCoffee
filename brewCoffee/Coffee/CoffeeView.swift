@@ -6,32 +6,23 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CoffeeView: View {
+    var coffeeList: [CoffeeBeans] = CoffeeBeans.dummies
+    @State private var searchText = ""
     var body: some View {
         NavigationStack {
-            List {
+            List(filteredCoffeeList) { coffee in
                 NavigationLink {
                     DetailCoffee()
                 } label: {
-                    CoffeeCard(img: "arabica", name: "Arabica")
-                }
-                .listRowSeparator(.hidden)
-                
-                NavigationLink {
-                    DetailCoffee()
-                } label: {
-                    CoffeeCard(img: "arabica", name: "Arabica")
-                }
-                .listRowSeparator(.hidden)
-                
-                NavigationLink {
-                    DetailCoffee()
-                } label: {
-                    CoffeeCard(img: "arabica", name: "Arabica")
+                    CoffeeCard(img: coffee.imgCoffee, name: coffee.nameCoffee)
                 }
                 .listRowSeparator(.hidden)
             }
+            .scrollContentBackground(.hidden)
+            .searchable(text: $searchText, prompt: "Search Coffee")
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Coffee")
@@ -40,6 +31,17 @@ struct CoffeeView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .accentColor(Color.warnacoklat)
+    }
+    
+    var filteredCoffeeList: [CoffeeBeans] {
+        if searchText.isEmpty {
+            return coffeeList
+        } else {
+            return coffeeList.filter { coffee in
+                coffee.nameCoffee.lowercased().contains(searchText.lowercased())
+            }
         }
     }
 }
