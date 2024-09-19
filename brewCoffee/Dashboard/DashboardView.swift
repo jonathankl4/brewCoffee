@@ -59,13 +59,12 @@ struct DashboardView: View {
                             .cornerRadius(15)
                         }
                         .sheet(isPresented: $showAddRecord) {
-                            AddRecordModalView(isNotificationEnabled: $isNotificationEnabled, showAddRecord: $showAddRecord)
+                            AddRecordView()
                         }
                     }
                     
                     VStack {
                         CurrentCoffeeCard(name: "Mocha Latte", time: "11.47 a.m", jml: "68 mg")
-                        
                     }
                     
                     Button(action: {

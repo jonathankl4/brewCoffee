@@ -13,6 +13,9 @@ struct CoffeeCard: View {
     var body: some View {
         HStack {
             Image(img)
+                .resizable() // Membuat gambar dapat diubah ukurannya
+                .aspectRatio(contentMode: .fit) // Menjaga rasio aspek gambar
+                .frame(width: 30, height: 30) // Menentukan ukuran gambar
             Text(name)
                 .font(.system(size: 22))
                 .frame(maxWidth: .infinity, alignment: .center)

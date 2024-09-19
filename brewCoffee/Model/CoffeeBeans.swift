@@ -16,7 +16,7 @@ struct CoffeeBeans: Identifiable {
 }
 
 extension CoffeeBeans {
-    static var dummies: [Coffee] = [
+    static var dummies: [CoffeeBeans] = [
         CoffeeBeans(nameCoffee: "Arabica", imgCoffee: "arabica", titleArticle: "Arabica nih bos", article: "Eeheehee"),
         CoffeeBeans(nameCoffee: "Chicory", imgCoffee: "chicorykopi", titleArticle: "Arabica nih bos", article: "Eeheehee"),
         CoffeeBeans(nameCoffee: "Kapal Api", imgCoffee: "kapal_api", titleArticle: "Arabica nih bos", article: "Eeheehee")
