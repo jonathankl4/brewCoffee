@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CaffeineRecord: View {
+struct CaffeineRecordView: View {
     @StateObject private var coffeeController = CoffeeController()
     
     @State private var showModal = false
@@ -100,6 +100,6 @@ struct CaffeineRecord: View {
 }
 
 #Preview {
-    ContentView()
+    CaffeineRecordView()
 }
 
