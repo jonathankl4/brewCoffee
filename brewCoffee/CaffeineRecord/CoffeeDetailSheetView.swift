@@ -50,7 +50,7 @@ struct CoffeeDetailSheetView: View {
                         Text("Size")
                           Spacer()
                             
-                        Text("\(coffee.size)")
+                        Text("\(coffee.selectedSizeCoffee ?? "Unknown")")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {

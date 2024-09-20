@@ -24,13 +24,13 @@ class CoreDataManager {
     }
     
     // Save coffee to Core Data
-    func saveCoffee(name: String, brand: String, size: Int, date: String, time: String, coffeeGram: Int, water: Int) {
+    func saveCoffee(name: String, brand: String, selectedSizeCoffee: String, date: String, time: String, coffeeGram: Int, water: Int) {
         let context = persistentContainer.viewContext
         let coffee = Coffee(context: context)
         
         coffee.name = name.isEmpty ? "Unknown" : name
         coffee.brand = brand.isEmpty ? "Unknown" : brand
-        coffee.size = Int16(size)
+        coffee.selectedSizeCoffee = selectedSizeCoffee.isEmpty ? "Unknown" : selectedSizeCoffee
         coffee.date = date.isEmpty ? "Unknown" : date
         coffee.time = time.isEmpty ? "Unknown" : time
         coffee.coffeeGram = Int16(coffeeGram)
@@ -39,7 +39,7 @@ class CoreDataManager {
         do {
             try context.save()
             print("Coffee saved successfully!")
-            print("\(coffee.name), \(coffee.brand), \(coffee.size), \(coffee.date), \(coffee.time), \(coffee.coffeeGram), \(coffee.water)")
+            print("\(coffee.name ?? "Unknown"), \(coffee.brand ?? "Unknown"), \(coffee.selectedSizeCoffee ?? "Unknown"), \(coffee.date ?? "Unknown"), \(coffee.time ?? "Unknown"), \(coffee.coffeeGram), \(coffee.water)")
         } catch {
             print("Failed to save coffee: \(error)")
         }
@@ -58,4 +58,3 @@ class CoreDataManager {
         }
     }
 }
-

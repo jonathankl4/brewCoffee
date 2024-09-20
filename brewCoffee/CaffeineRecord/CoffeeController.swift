@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 // This controller handles the interaction between the views and the model
 class CoffeeController: ObservableObject {
@@ -21,8 +20,8 @@ class CoffeeController: ObservableObject {
     }
     
     // Add coffee data
-    func addCoffee(name: String, brand: String, size: Int, date: String, time: String, coffeeGram: Int, water: Int) {
-        coffeeModel.saveCoffee(name: name, brand: brand, size: size, date: date, time: time, coffeeGram: coffeeGram, water: water)
+    func addCoffee(name: String, brand: String, selectedSizeCoffee: String, date: String, time: String, coffeeGram: Int, water: Int) {
+        coffeeModel.saveCoffee(name: name, brand: brand, selectedSizeCoffee: selectedSizeCoffee, date: date, time: time, coffeeGram: coffeeGram, water: water)
         loadCoffeeData() // Refresh data after saving
     }
 }
