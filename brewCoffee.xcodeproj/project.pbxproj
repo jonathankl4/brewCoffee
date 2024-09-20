@@ -110,7 +110,6 @@
 		0401C5702C96719A00D002E1 /* brewCoffee */ = {
 			isa = PBXGroup;
 			children = (
-				040CAC662C9BE758000299E3 /* Controllers */,
 				040CAC652C9BE147000299E3 /* Helper */,
 				040CAC592C9BDDE8000299E3 /* Model */,
 				04E708102C9BCC460069FDDD /* CaffeineRecord */,
@@ -152,13 +151,6 @@
 				04B3FC302C99192C0042E286 /* GraphCaffeine.swift */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		040CAC662C9BE758000299E3 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		04B3FC202C990E180042E286 /* Dashboard */ = {

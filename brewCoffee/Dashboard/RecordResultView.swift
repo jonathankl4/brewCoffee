@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct RecordResultView: View {
+    var name: String
+    var size: String
+    var time: String
+    var coffeeAmount: String
+    var waterAmount: String
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -16,7 +22,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine present in your body after consumption.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("66 mg")
+                        Text("66 mg") //kafein disini
                     }
                 }
                 
@@ -25,7 +31,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("66/200 mg")
+                        Text("66/200 mg") //kafein disini
                     }
                 }
                 
@@ -34,42 +40,34 @@ struct RecordResultView: View {
                         Text("Name")
                           Spacer()
                             
-                        Text("Americano")
-                            .multilineTextAlignment(.trailing)
-                    }
-                    HStack {
-                        Text("Brand")
-                          Spacer()
-                            
-                        Text("Indomie")
+                        Text(name)//dari halaman sebelumnya
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Size")
                           Spacer()
                             
-                        Text("1 cup")
+                        Text(size)//dari halaman sebelumnya
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Time")
                           Spacer()
-                            
-                        Text("Friday, sdkakjd")
+                        Text(time)//dari halaman sebelumnya
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
-                        Text("Gram")
+                        Text("Coffee")
                           Spacer()
                             
-                        Text("100 kg")
+                        Text(coffeeAmount)//dari halaman sebelumnya
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Water")
                           Spacer()
                             
-                        Text("200 ml")
+                        Text(waterAmount)//dari halaman sebelumnya
                             .multilineTextAlignment(.trailing)
                     }
                 }
@@ -81,5 +79,5 @@ struct RecordResultView: View {
 }
 
 #Preview {
-    RecordResultView()
+    RecordResultView(name: "Americano", size: "1 Cup", time: "Jumat, sdsdkjd", coffeeAmount: "100 mg", waterAmount: "1000 ml")
 }

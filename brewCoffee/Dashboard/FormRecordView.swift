@@ -8,6 +8,17 @@
 import SwiftUI
 
 struct FormRecordView: View {
+    @State private var selectedSizeCoffee: String = "1 Cup"
+    @State private var selectedDate = Date()
+    @State private var selectedTime = Date()
+    
+    @State private var isCalendarEnabled = false
+    @State private var isTimeEnabled = false
+    
+    var sizeCoffee: [String] {
+        ["¼ Cup", "½ Cup", "¾ Cup", "1 Cup", "1½ Cup", "2 Cup"]
+    }
+    
     var coffeeName: String
     var caffeineCoffee: Double
     
@@ -19,48 +30,43 @@ struct FormRecordView: View {
         _enteredName = State(initialValue: coffeeName)
     }
     
-    @State private var coffeeBrand = ""
-    @State private var selectedSizeCoffee: String = "1x"
-    @State private var coffeeGram = 0.0
-    @State private var coffeeWater = 0.0
-    @State private var coffeeDate = ""
-    @State private var coffeeTime = ""
-    
-    @State private var isCalendarEnabled = false
-    @State private var isTimeEnabled = false
-    @State private var selectedDate = Date()
-    @State private var selectedTime = Date()
-    
-    
     let coffeeBase: Double = 13.0
     let waterBase: Double = 208.0
     
-    var sizeCoffee: [String] {
-        ["¼x", "½x", "¾x", "1x", "1½x", "2x"]
-    }
-    
     var coffeeAmount: Double {
         switch selectedSizeCoffee {
-        case "¼x": return coffeeBase * 0.25
-        case "½x": return coffeeBase * 0.5
-        case "¾x": return coffeeBase * 0.75
-        case "1x": return coffeeBase
-        case "1½x": return coffeeBase * 1.5
-        case "2x": return coffeeBase * 2.0
+        case "¼ Cup": return coffeeBase * 0.25
+        case "½ Cup": return coffeeBase * 0.5
+        case "¾ Cup": return coffeeBase * 0.75
+        case "1 Cup": return coffeeBase
+        case "1½ Cup": return coffeeBase * 1.5
+        case "2 Cup": return coffeeBase * 2.0
         default: return coffeeBase
         }
     }
     
     var waterAmount: Double {
         switch selectedSizeCoffee {
-        case "¼x": return waterBase * 0.25
-        case "½x": return waterBase * 0.5
-        case "¾x": return waterBase * 0.75
-        case "1x": return waterBase
-        case "1½x": return waterBase * 1.5
-        case "2x": return waterBase * 2.0
+        case "¼ Cup": return waterBase * 0.25
+        case "½ Cup": return waterBase * 0.5
+        case "¾ Cup": return waterBase * 0.75
+        case "1 Cup": return waterBase
+        case "1½ Cup": return waterBase * 1.5
+        case "2 Cup": return waterBase * 2.0
         default: return waterBase
         }
+    }
+    
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return formatter.string(from: isCalendarEnabled ? selectedDate : Date())
+    }
+
+    var formattedTime: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: isTimeEnabled ? selectedTime : Date())
     }
     
     var body: some View {
@@ -94,18 +100,12 @@ struct FormRecordView: View {
                         Text("Coffee (mg)")
                         Spacer()
                         Text("\(Int(coffeeAmount)) mg")
-                            .onChange(of: selectedSizeCoffee) { newSize in
-                                coffeeGram = (Double(coffeeAmount))
-                            }
                     }
 
                     HStack {
                         Text("Water (ml)")
                         Spacer()
                         Text("\(Int(waterAmount)) ml")
-                            .onChange(of: selectedSizeCoffee) { newSize in
-                                coffeeWater = (Double(waterAmount))
-                            }
                     }
                 }
                 
@@ -142,7 +142,13 @@ struct FormRecordView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        RecordResultView()
+                        RecordResultView(
+                            name: enteredName,
+                            size: selectedSizeCoffee,
+                            time: "\(formattedDate) at \(formattedTime)",
+                            coffeeAmount: "\(Int(coffeeAmount)) mg",
+                            waterAmount: "\(Int(waterAmount)) ml"
+                        )
                     } label: {
                         HStack(spacing: 3) {
                            Text("Next")
