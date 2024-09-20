@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CoffeeCard: View {
-    let img: String
+    let icon: String
     let name: String
     var body: some View {
         HStack {
-            Image(img)
+            Image(icon)
                 .resizable() // Membuat gambar dapat diubah ukurannya
                 .aspectRatio(contentMode: .fit) // Menjaga rasio aspek gambar
                 .frame(width: 30, height: 30) // Menentukan ukuran gambar
@@ -28,5 +28,5 @@ struct CoffeeCard: View {
 }
 
 #Preview {
-    CoffeeCard(img: "arabica", name: "Arabica")
+    CoffeeCard(icon: "arabica", name: "Arabica")
 }

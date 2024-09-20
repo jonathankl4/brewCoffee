@@ -10,15 +10,17 @@ import Foundation
 struct CoffeeBeans: Identifiable {
     var id: UUID = UUID()
     var nameCoffee: String
-    var imgCoffee: String
     var titleArticle: String
+    var imgArticle: String
+    var iconCoffee: String
     var article: String
 }
 
 extension CoffeeBeans {
     static var dummies: [CoffeeBeans] = [
-        CoffeeBeans(nameCoffee: "Arabica", imgCoffee: "arabica", titleArticle: "Arabica nih bos", article: "Eeheehee"),
-        CoffeeBeans(nameCoffee: "Chicory", imgCoffee: "chicorykopi", titleArticle: "Arabica nih bos", article: "Eeheehee"),
-        CoffeeBeans(nameCoffee: "Kapal Api", imgCoffee: "kapal_api", titleArticle: "Arabica nih bos", article: "Eeheehee")
+        CoffeeBeans(nameCoffee: "Chicory", titleArticle: "Chicory Coffee: A Healthy Coffee", imgArticle: "chicory", iconCoffee: "chicorykopi", article: "halooo gayss"),
+        CoffeeBeans(nameCoffee: "Luwak", titleArticle: "Luwak Coffee: A Healthy Coffee", imgArticle: "chicory", iconCoffee: "luwak", article: "halooo gayss"),
+        CoffeeBeans(nameCoffee: "Arabica", titleArticle: "Arabica Coffee: A Healthy Coffee", imgArticle: "chicory", iconCoffee: "arabica", article: "halooo gayss"),
+        CoffeeBeans(nameCoffee: "Java Coffee", titleArticle: "Java Coffee: A Healthy Coffee", imgArticle: "chicory", iconCoffee: "kapal_api", article: "halooo gayss"),
     ]
 }

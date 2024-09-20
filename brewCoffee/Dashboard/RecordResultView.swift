@@ -1,19 +1,17 @@
 //
-//  CoffeeDetailSheetView.swift
+//  RecordResultView.swift
 //  brewCoffee
 //
-//  Created by MacBook Air on 19/09/24.
+//  Created by MacBook Air on 20/09/24.
 //
 
 import SwiftUI
 
-struct CoffeeDetailSheetView: View {
-    var coffee: Coffee
-
+struct RecordResultView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text("Body Caffeine").padding(.leading, -12.5).bold()) {
+                Section(header: Text("Body Caffeine").padding(.leading, -12.5).bold().foregroundColor(Color.warnacoklat)) {
                     HStack {
                         Text("The amount of caffeine present in your body after consumption.")
                             .foregroundStyle(.secondary)
@@ -22,7 +20,7 @@ struct CoffeeDetailSheetView: View {
                     }
                 }
                 
-                Section(header: Text("Caffeine Limit").padding(.leading, -12.5).bold()) {
+                Section(header: Text("Caffeine Limit").padding(.leading, -12.5).bold().foregroundColor(Color.warnacoklat)) {
                     HStack {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
@@ -31,56 +29,57 @@ struct CoffeeDetailSheetView: View {
                     }
                 }
                 
-                Section(header: Text("Details").padding(.leading, -12.5).bold()) {
+                Section(header: Text("Details").padding(.leading, -12.5).bold().foregroundColor(Color.warnacoklat)) {
                     HStack {
                         Text("Name")
                           Spacer()
                             
-                        Text("\(coffee.name ?? "Unknown")")
+                        Text("Americano")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Brand")
                           Spacer()
                             
-                        Text("\(coffee.brand ?? "Unknown")")
+                        Text("Indomie")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Size")
                           Spacer()
                             
-                        Text("\(coffee.size)")
+                        Text("1 cup")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Time")
                           Spacer()
                             
-                        Text("\(coffee.date ?? "Unknown") at \(coffee.time ?? "Unknown")")
+                        Text("Friday, sdkakjd")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Gram")
                           Spacer()
                             
-                        Text("\(Int(coffee.coffeeGram))")
+                        Text("100 kg")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Water")
                           Spacer()
                             
-                        Text("\(Int(coffee.water))")
+                        Text("200 ml")
                             .multilineTextAlignment(.trailing)
                     }
                 }
             }
             .navigationTitle("Caffeine Record")
             .navigationBarTitleDisplayMode(.inline)
-//            .navigationBarItems(leading: Button("Cancel"), trailing: Button("Done") {
-//
-//            }
         }
     }
+}
+
+#Preview {
+    RecordResultView()
 }

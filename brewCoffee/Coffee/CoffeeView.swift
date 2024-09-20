@@ -15,9 +15,9 @@ struct CoffeeView: View {
         NavigationStack {
             List(filteredCoffeeList) { coffee in
                 NavigationLink {
-                    DetailCoffee()
+                    DetailCoffee(titleArticle: coffee.titleArticle, imgArticle: coffee.imgArticle)
                 } label: {
-                    CoffeeCard(img: coffee.imgCoffee, name: coffee.nameCoffee)
+                    CoffeeCard(icon: coffee.iconCoffee, name: coffee.nameCoffee)
                 }
                 .listRowSeparator(.hidden)
             }

@@ -10,7 +10,7 @@ import Charts
 
 struct GraphCaffeine: View {
     let data: [(String, Double)] = [
-        ("08.00", 200),
+        ("08.00", 100),
         ("09.00", 150),
         ("10.00", 300),
         ("11.00", 250),

@@ -9,15 +9,15 @@ import SwiftUI
 
 struct AddRecordView: View {
     @Environment(\.dismiss) var dismiss
-    var coffeeList: [CoffeeBeans] = CoffeeBeans.dummies
+    var coffeeList: [CoffeeDrinks] = CoffeeDrinks.dummies
     @State private var searchText = ""
     var body: some View {
         NavigationStack {
             List(filteredCoffeeList) { coffee in
                 NavigationLink {
-                    DetailCoffee()
+                    FormRecordView(coffeeName: coffee.nameCoffee, caffeineCoffee: coffee.caffeineCoffee)
                 } label: {
-                    CoffeeCard(img: coffee.imgCoffee, name: coffee.nameCoffee)
+                    CoffeeCard(icon: coffee.iconCoffee, name: coffee.nameCoffee)
                 }
                 .listRowSeparator(.hidden)
             }
@@ -33,7 +33,6 @@ struct AddRecordView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text("Add Record")
-                        .font(.system(size: 25))
                         .bold()
                 }
             }
@@ -42,7 +41,7 @@ struct AddRecordView: View {
         .accentColor(Color.warnacoklat)
     }
     
-    var filteredCoffeeList: [CoffeeBeans] {
+    var filteredCoffeeList: [CoffeeDrinks] {
         if searchText.isEmpty {
             return coffeeList
         } else {
