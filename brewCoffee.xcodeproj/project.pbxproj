@@ -52,7 +52,7 @@
 		040CAC5A2C9BDE0F000299E3 /* CaffeineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaffeineModel.swift; sourceTree = "<group>"; };
 		040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBeans.swift; sourceTree = "<group>"; };
 		040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
-		040CAC602C9BDFD6000299E3 /* kucing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = kucing.gif; path = ../../../kucing.gif; sourceTree = "<group>"; };
+		040CAC602C9BDFD6000299E3 /* kucing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = kucing.gif; path = brewCoffee/splash/kucing.gif; sourceTree = SOURCE_ROOT; };
 		040CAC7D2C9C36BE000299E3 /* CoffeeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoffeeModel.xcdatamodel; sourceTree = "<group>"; };
 		040CAC862C9C36BF000299E3 /* CaffeineRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CaffeineRecordView.swift; path = ../../../brewCoffeetes/brewCoffee/CaffeineRecord/CaffeineRecordView.swift; sourceTree = "<group>"; };
 		040CAC932C9C37FD000299E3 /* CoffeeMixtureSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoffeeMixtureSectionView.swift; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 				040CAC662C9BE758000299E3 /* Controllers */,
 				040CAC652C9BE147000299E3 /* Helper */,
 				040CAC592C9BDDE8000299E3 /* Model */,
-				04E708102C9BCC460069FDDD /* CaffeineRecordJO */,
+				04E708102C9BCC460069FDDD /* CaffeineRecord */,
 				04FBDB602C9A998600F3DC3E /* splash */,
 				04B3FC372C9928610042E286 /* Coffee */,
 				04B3FC202C990E180042E286 /* Dashboard */,
@@ -182,7 +182,7 @@
 			path = Coffee;
 			sourceTree = "<group>";
 		};
-		04E708102C9BCC460069FDDD /* CaffeineRecordJO */ = {
+		04E708102C9BCC460069FDDD /* CaffeineRecord */ = {
 			isa = PBXGroup;
 			children = (
 				04E708152C9BCD800069FDDD /* CoreDataManager.swift */,
@@ -198,7 +198,7 @@
 				040CAC952C9C37FD000299E3 /* CoffeeRowView.swift */,
 				040CAC7C2C9C36BE000299E3 /* CoffeeModel.xcdatamodeld */,
 			);
-			path = CaffeineRecordJO;
+			path = CaffeineRecord;
 			sourceTree = "<group>";
 		};
 		04FBDB602C9A998600F3DC3E /* splash */ = {
