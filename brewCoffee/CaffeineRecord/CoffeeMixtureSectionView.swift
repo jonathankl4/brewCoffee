@@ -17,24 +17,24 @@ struct CoffeeMixtureSectionView: View {
     
     var coffeeAmount: Double {
         switch selectedSizeCoffee {
-        case "¼x": return coffeeBase * 0.25
-        case "½x": return coffeeBase * 0.5
-        case "¾x": return coffeeBase * 0.75
-        case "1x": return coffeeBase
-        case "1½x": return coffeeBase * 1.5
-        case "2x": return coffeeBase * 2.0
+        case "¼ Cup": return coffeeBase * 0.25
+        case "½ Cup": return coffeeBase * 0.5
+        case "¾ Cup": return coffeeBase * 0.75
+        case "1 Cup": return coffeeBase
+        case "1½ Cup": return coffeeBase * 1.5
+        case "2 Cup": return coffeeBase * 2.0
         default: return coffeeBase
         }
     }
     
     var waterAmount: Double {
         switch selectedSizeCoffee {
-        case "¼x": return waterBase * 0.25
-        case "½x": return waterBase * 0.5
-        case "¾x": return waterBase * 0.75
-        case "1x": return waterBase
-        case "1½x": return waterBase * 1.5
-        case "2x": return waterBase * 2.0
+        case "¼ Cup": return waterBase * 0.25
+        case "½ Cup": return waterBase * 0.5
+        case "¾ Cup": return waterBase * 0.75
+        case "1 Cup": return waterBase
+        case "1½ Cup": return waterBase * 1.5
+        case "2 Cup": return waterBase * 2.0
         default: return waterBase
         }
     }

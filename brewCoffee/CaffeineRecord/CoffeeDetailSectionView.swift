@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct CoffeeDetailSectionView: View {
+struct CoffeeDetailsSectionView: View {
     @Binding var name: String
     @Binding var brand: String
     @Binding var selectedSizeCoffee: String
 
     var sizeCoffee: [String] {
-        ["¼x", "½x", "¾x", "1x", "1½x", "2x"]
+        ["¼ Cup", "½ Cup", "¾ Cup", "1 Cup", "1½ Cup", "2 Cup"]
     }
 
     var body: some View {
@@ -42,3 +42,4 @@ struct CoffeeDetailSectionView: View {
         }
     }
 }
+

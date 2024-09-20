@@ -14,7 +14,7 @@ struct CoffeeRowView: View {
         VStack(alignment: .leading) {
             Text("Name: \(coffee.name ?? "Unknown")")
             Text("Brand: \(coffee.brand ?? "Unknown")")
-            Text("Size: \(coffee.size)")
+            Text("Size: \(coffee.selectedSizeCoffee ?? "Unknown")")
             Text("Date: \(coffee.date ?? "Unknown")")
             Text("Time: \(coffee.time ?? "Unknown")")
             Text("Gram: \(coffee.coffeeGram)")
@@ -22,3 +22,4 @@ struct CoffeeRowView: View {
         }
     }
 }
+
