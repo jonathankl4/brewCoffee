@@ -24,3 +24,5 @@ xcuserdata/
 **/.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
+brewCoffee.xcodeproj/project.xcworkspace/xcuserdata/mac.xcuserdatad/UserInterfaceState.xcuserstate
+brewCoffee.xcodeproj/project.pbxproj
