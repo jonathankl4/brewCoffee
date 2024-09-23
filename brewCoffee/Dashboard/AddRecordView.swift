@@ -15,7 +15,7 @@ struct AddRecordView: View {
         NavigationStack {
             List(filteredCoffeeList) { coffee in
                 NavigationLink {
-                    FormRecordView(coffeeName: coffee.nameCoffee, caffeineCoffee: coffee.caffeineCoffee)
+                    FormRecordView(coffeeName: coffee.nameCoffee, caffeineCoffee: coffee.caffeineCoffee, iconCoffee: coffee.iconCoffee)
                 } label: {
                     CoffeeCard(icon: coffee.iconCoffee, name: coffee.nameCoffee)
                 }

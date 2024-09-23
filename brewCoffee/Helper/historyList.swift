@@ -9,23 +9,27 @@ import SwiftUI
 
 struct historyList: View {
     
-    let time: String
-    let caffeine: String
-    let name: String
+    var coffeeRecord: CoffeeRecords
     
     var body: some View {
         HStack {
-            Text(time)
+            Text(formattedTime(from: coffeeRecord.time))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(caffeine)
+            Text("\(Int(coffeeRecord.caffeineCoffee))")
                 .frame(maxWidth: .infinity, alignment: .center)
-            Text(name)
+            Text(coffeeRecord.name)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(.vertical, 5)
     }
+    
+    func formattedTime(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
 }
 
-#Preview {
-    historyList(time: "09.15", caffeine: "66 mg", name: "Latte")
-}
+//#Preview {
+//    historyList(time: "09.15", caffeine: "66 mg", name: "Latte")
+//}

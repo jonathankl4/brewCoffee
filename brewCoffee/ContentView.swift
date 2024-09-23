@@ -22,7 +22,6 @@ struct ContentView: View {
                     Text("Dashboard")
                 }
             
-            
             CoffeeView()
                 .tabItem {
                     Image(systemName: "cup.and.saucer.fill")

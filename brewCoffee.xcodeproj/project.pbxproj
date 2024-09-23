@@ -13,6 +13,8 @@
 		0401C5792C96719B00D002E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0401C5782C96719B00D002E1 /* Preview Assets.xcassets */; };
 		040A9E4A2C9D057E00CD3B40 /* RecordResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E492C9D057E00CD3B40 /* RecordResultView.swift */; };
 		040A9E4D2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E4B2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld */; };
+		040A9E4F2C9EB7C300CD3B40 /* CoffeeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */; };
+		040A9E512CA077E500CD3B40 /* EditRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E502CA077E500CD3B40 /* EditRecord.swift */; };
 		040CAC5D2C9BDE30000299E3 /* CoffeeBeans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */; };
 		040CAC5F2C9BDF24000299E3 /* AddRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */; };
 		040CAC612C9BDFD6000299E3 /* kucing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 040CAC602C9BDFD6000299E3 /* kucing.gif */; };
@@ -48,6 +50,8 @@
 		0401C5782C96719B00D002E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		040A9E492C9D057E00CD3B40 /* RecordResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResultView.swift; sourceTree = "<group>"; };
 		040A9E4C2C9D311300CD3B40 /* CoffeeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoffeeModel.xcdatamodel; sourceTree = "<group>"; };
+		040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeRecord.swift; sourceTree = "<group>"; };
+		040A9E502CA077E500CD3B40 /* EditRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecord.swift; sourceTree = "<group>"; };
 		040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBeans.swift; sourceTree = "<group>"; };
 		040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
 		040CAC602C9BDFD6000299E3 /* kucing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = kucing.gif; path = brewCoffee/splash/kucing.gif; sourceTree = SOURCE_ROOT; };
@@ -109,7 +113,7 @@
 				040CAC652C9BE147000299E3 /* Helper */,
 				040CAC592C9BDDE8000299E3 /* Model */,
 				04E708102C9BCC460069FDDD /* CaffeineRecord */,
-				04FBDB602C9A998600F3DC3E /* splash */,
+				04FBDB602C9A998600F3DC3E /* Splash */,
 				04B3FC372C9928610042E286 /* Coffee */,
 				04B3FC202C990E180042E286 /* Dashboard */,
 				0401C5712C96719A00D002E1 /* brewCoffeeApp.swift */,
@@ -133,6 +137,7 @@
 			children = (
 				040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */,
 				040CACA12C9C4E48000299E3 /* CoffeeDrinks.swift */,
+				040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */,
 				040CAC9F2C9C384E000299E3 /* FormRecordView.swift */,
 				040A9E492C9D057E00CD3B40 /* RecordResultView.swift */,
+				040A9E502CA077E500CD3B40 /* EditRecord.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -187,13 +193,13 @@
 			path = CaffeineRecord;
 			sourceTree = "<group>";
 		};
-		04FBDB602C9A998600F3DC3E /* splash */ = {
+		04FBDB602C9A998600F3DC3E /* Splash */ = {
 			isa = PBXGroup;
 			children = (
 				04FBDB612C9A999D00F3DC3E /* splashscreen.swift */,
 				040CAC602C9BDFD6000299E3 /* kucing.gif */,
 			);
-			path = splash;
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +288,7 @@
 				040CAC9A2C9C37FD000299E3 /* CoffeeFormView.swift in Sources */,
 				040CACA02C9C384E000299E3 /* FormRecordView.swift in Sources */,
 				0401C5722C96719A00D002E1 /* brewCoffeeApp.swift in Sources */,
+				040A9E512CA077E500CD3B40 /* EditRecord.swift in Sources */,
 				040A9E4A2C9D057E00CD3B40 /* RecordResultView.swift in Sources */,
 				040CAC9D2C9C37FD000299E3 /* CoffeeDetailSheetView.swift in Sources */,
 				04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */,
@@ -292,6 +299,7 @@
 				040CAC9C2C9C37FD000299E3 /* CoffeeDetailSectionView.swift in Sources */,
 				040CAC9B2C9C37FD000299E3 /* CoffeeRowView.swift in Sources */,
 				040CACA22C9C4E48000299E3 /* CoffeeDrinks.swift in Sources */,
+				040A9E4F2C9EB7C300CD3B40 /* CoffeeRecord.swift in Sources */,
 				040A9E4D2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld in Sources */,
 				040CAC5F2C9BDF24000299E3 /* AddRecordView.swift in Sources */,
 				04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */,

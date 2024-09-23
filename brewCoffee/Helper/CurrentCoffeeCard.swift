@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct CurrentCoffeeCard: View {
-    let name: String
-    let time: String   
-    let jml: String
+    var coffeeRecord: CoffeeRecords
     var body: some View {
         HStack {
-            Image(systemName: "wineglass.fill")
-                .font(.system(size: 25))
-            VStack {
-                Text(name)
+            Image(coffeeRecord.iconCoffee)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+            VStack(alignment: .leading) {
+                Text(coffeeRecord.name)
                 HStack {
                     Image(systemName: "clock")
-                    Text(time)
+                    Text(formattedTime(from: coffeeRecord.time))
                 }
             }
             Spacer()
             HStack {
-                Image(systemName: "globe")
-                Text(jml)
+                Image("coffee_dashboard")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                Text("\(Int(coffeeRecord.caffeineCoffee)) mg")
             }
         }
         .padding()
@@ -33,8 +36,14 @@ struct CurrentCoffeeCard: View {
         .background(Color.cokelatMuda)
         .cornerRadius(15)
     }
+    
+    func formattedTime(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
 }
 
-#Preview {
-    CurrentCoffeeCard(name: "Mocha Latte", time: "11.47", jml: "68 mg")
-}
+//#Preview {
+//    CurrentCoffeeCard(coffeeRecord: CoffeeRecord)
+//}

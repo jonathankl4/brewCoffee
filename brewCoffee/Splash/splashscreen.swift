@@ -70,6 +70,28 @@ struct GifImage: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
+struct SplashScreen: View {
+    @State private var showSplash = true
+
+    var body: some View {
+        Group {
+            if showSplash {
+                // Splash Screen
+                splashscreen()
+                    .onAppear {
+                        // Tampilkan splash screen selama 3 detik
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            showSplash = false
+                        }
+                    }
+            } else {
+                // Tampilan utama setelah splash screen
+                ContentView() // Ganti dengan tampilan utama Anda
+            }
+        }
+    }
+}
+
 struct splashscreen: View {
     
     @State private var size: CGSize?

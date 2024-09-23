@@ -6,13 +6,35 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecordResultView: View {
     var name: String
     var size: String
-    var time: String
-    var coffeeAmount: String
-    var waterAmount: String
+    var time: Date
+    var date: Date
+    var caffeineCoffee: Double
+    var coffeeAmount: Double
+    var waterAmount: Double
+    var iconCoffee: String
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
+    @Environment(\.modelContext) private var context
+    
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return formatter.string(from: date)
+    }
+
+    var formattedTime: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: time)
+    }
     
     var body: some View {
         NavigationStack {
@@ -22,7 +44,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine present in your body after consumption.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("66 mg") //kafein disini
+                        Text("\(Int(caffeineCoffee)) mg")
                     }
                 }
                 
@@ -31,7 +53,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("66/200 mg") //kafein disini
+                        Text("\(Int(caffeineCoffee))/200 mg")
                     }
                 }
                 
@@ -40,44 +62,118 @@ struct RecordResultView: View {
                         Text("Name")
                           Spacer()
                             
-                        Text(name)//dari halaman sebelumnya
+                        Text(name)
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Size")
                           Spacer()
                             
-                        Text(size)//dari halaman sebelumnya
+                        Text(size)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Date")
+                          Spacer()
+                        Text("\(formattedDate)")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Time")
                           Spacer()
-                        Text(time)//dari halaman sebelumnya
+                        Text("\(formattedTime)")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Coffee")
                           Spacer()
                             
-                        Text(coffeeAmount)//dari halaman sebelumnya
+                        Text("\(Int(coffeeAmount)) mg")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Water")
                           Spacer()
                             
-                        Text(waterAmount)//dari halaman sebelumnya
+                        Text("\(Int(waterAmount)) ml")
                             .multilineTextAlignment(.trailing)
                     }
                 }
             }
             .navigationTitle("Caffeine Record")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        saveRecord()
+                    }) {
+                        HStack(spacing: 3) {
+                            Text("Add")
+                                .bold()
+                            Image(systemName: "chevron.right")
+                                .bold()
+                        }
+                    }
+                    .foregroundColor(Color.warnacoklat)
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"), action: {
+                        if alertTitle == "Success" {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                dismissToRoot()
+                            }
+                        }
+                    })
+                )
+            }
+        }
+    }
+    
+    func saveRecord() {
+        
+        let newRecord = CoffeeRecords(
+            name: name,
+            size: size,
+            date: date,
+            time: time,
+            coffeeAmount: coffeeAmount,
+            caffeineCoffee: caffeineCoffee,
+            waterAmount: waterAmount,
+            iconCoffee: iconCoffee
+        )
+        
+        context.insert(newRecord)
+        do {
+            try context.save()
+            alertTitle = "Success"
+            alertMessage = "Record added successfully."
+            showAlert = true
+        } catch {
+            alertTitle = "Error"
+            alertMessage = "Failed to save record: \(error.localizedDescription)"
+            showAlert = true
+        }
+    }
+    
+    func dismissToRoot() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
         }
     }
 }
 
-#Preview {
-    RecordResultView(name: "Americano", size: "1 Cup", time: "Jumat, sdsdkjd", coffeeAmount: "100 mg", waterAmount: "1000 ml")
-}
+//#Preview {
+//    RecordResultView(
+//        name: "Americano",
+//        size: "1 Cup",
+//        time: Date(),
+//        date: Date(),
+//        caffeineCoffee: 66,
+//        coffeeAmount: 100,
+//        waterAmount: 1000
+//    )
+//}

@@ -6,20 +6,29 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HistoryLogView: View {
+    @Query var coffeeRecord: [CoffeeRecords]
     @State private var date = Date()
+    @State private var selectedRecord: CoffeeRecords?
+    @State private var showEditRecord = false
+    @State private var showDeleteConfirmation = false
+    
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var context
     
     var body: some View {
+        let filteredRecords = coffeeRecord.filter { record in
+            Calendar.current.isDate(record.date, inSameDayAs: date)
+        }
+        
+        let totalCaffeineToday = filteredRecords.reduce(0) { total, record in
+            total + record.caffeineCoffee
+        }
         NavigationStack {
             VStack {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(.white)
-                        .shadow(radius: 2)
-                        .frame(width: 370, height: 330)
-                    
+                VStack {
                     DatePicker(
                         "Start Date",
                         selection: $date,
@@ -27,56 +36,119 @@ struct HistoryLogView: View {
                     )
                     .datePickerStyle(.graphical)
                     .accentColor(.warnacoklat)
-                    .padding(30)
                 }
-            
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(.white)
-                        .shadow(radius: 3)
-                        .frame(width: 370, height: 270)
-                    VStack {
-                        SummaryLog(tgl: "Monday, 10 September", desc: "you drank.....")
-                        Divider()
-                        HStack {
-                            Text("Time")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .bold()
-                            Text("Caffeine")
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .bold()
-                            Text("Name")
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .bold()
-                        }
-                        Divider()
-                        List {
-                            historyList(time: "09.15", caffeine: "66mg", name: "Latte")
-                            historyList(time: "10.30", caffeine: "80mg", name: "Extra Long Drink Name")
-                            historyList(time: "11.45", caffeine: "75mg", name: "Cappuccino")
+                .padding(20)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .frame(height: 330)
+                .background(.white)
+                .cornerRadius(10)
+                .shadow(radius: 2)
+                .padding(.bottom, 20)
+                
+                VStack {
+                    SummaryLog(tgl: formattedDate(date), desc: "you drank \(Int(totalCaffeineToday)) mg of caffeine on that today")
+                    Divider()
+                    HStack {
+                        Text("Time")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .bold()
+                        Text("Caffeine")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .bold()
+                        Text("Name")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .bold()
+                    }
+                    Divider()
+                    if filteredRecords.isEmpty {
+                        Text("No records found for this date.")
+                            .foregroundColor(.gray)
+                    } else {
+                        List(filteredRecords) { record in
+                            historyList(coffeeRecord: record)
+                                .swipeActions {
+                                    Button(action: {
+                                        selectedRecord = record
+                                        showEditRecord = true
+                                    }) {
+                                        Label("Edit", systemImage: "pencil")
+                                    }
+                                    .tint(.blue)
+
+                                    Button(action: {
+                                        selectedRecord = record
+                                        showDeleteConfirmation = true
+                                    }) {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                    .tint(.red)
+                                }
                         }
                         .frame(height: 120)
                         .scrollContentBackground(.hidden)
                         .listStyle(.plain)
                     }
-                    .cornerRadius(10)
-                    .padding(.top, -10)
-                    .padding(30)
+                    Spacer()
                 }
-                .padding(.top, -10)
+                .padding(25)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .frame(height: 300)
+                .background(.white)
+                .cornerRadius(10)
+                .shadow(radius: 2)
             }
-            .padding(.top, -50)
+            .padding(.top, -10)
+            .padding()
             .navigationTitle("Consumption Log")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Close") {
-                            dismiss()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Close") {
+                        dismiss()
                     }
                     .foregroundColor(Color.warnacoklat)
                 }
             }
+            .sheet(isPresented: $showEditRecord) {
+                if let selectedRecord = selectedRecord {
+                    EditRecord(
+                        coffeeName: selectedRecord.name,
+                        caffeineCoffee: selectedRecord.caffeineCoffee,
+                        size: selectedRecord.size,
+                        date: selectedRecord.date,
+                        time: selectedRecord.time
+                    )
+                }
+            }
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text("Delete Record"),
+                    message: Text("Are you sure you want to delete this record?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let recordToDelete = selectedRecord {
+                            deleteRecord(recordToDelete)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
         }
+    }
+    
+    func deleteRecord(_ record: CoffeeRecords) {
+        context.delete(record)
+        do {
+            try context.save()
+        } catch {
+            // Tangani error saat menghapus
+            print("Failed to delete record: \(error)")
+        }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return formatter.string(from: date)
     }
 }
 

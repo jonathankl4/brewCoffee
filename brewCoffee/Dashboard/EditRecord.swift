@@ -1,22 +1,23 @@
 //
-//  FormRecordView.swift
+//  EditRecord.swift
 //  brewCoffee
 //
-//  Created by MacBook Air on 19/09/24.
+//  Created by MacBook Air on 22/09/24.
 //
 
 import SwiftUI
 
-struct FormRecordView: View {
+struct EditRecord: View {
     var coffeeName: String
     var caffeineCoffee: Double
-    var iconCoffee: String
+    var initialSize: String
+    var initialDate: Date
+    var initialTime: Date
     
     @State private var enteredName: String
-    @State private var selectedSizeCoffee: String = "1 Cup"
-    @State private var selectedDate = Date()
-    @State private var selectedTime = Date()
-    
+    @State private var selectedSizeCoffee: String
+    @State private var selectedDate: Date
+    @State private var selectedTime: Date
     @State private var isCalendarEnabled = false
     @State private var isTimeEnabled = false
     
@@ -27,11 +28,17 @@ struct FormRecordView: View {
         ["¼ Cup", "½ Cup", "¾ Cup", "1 Cup", "1½ Cup", "2 Cup"]
     }
 
-    init(coffeeName: String, caffeineCoffee: Double, iconCoffee: String) {
+    init(coffeeName: String, caffeineCoffee: Double, size: String, date: Date, time: Date) {
         self.coffeeName = coffeeName
         self.caffeineCoffee = caffeineCoffee
-        self.iconCoffee = iconCoffee
+        self.initialSize = size
+        self.initialDate = date
+        self.initialTime = time
+        // Inisialisasi state dengan nilai dari parameter
         _enteredName = State(initialValue: coffeeName)
+        _selectedSizeCoffee = State(initialValue: size)
+        _selectedDate = State(initialValue: date)
+        _selectedTime = State(initialValue: time)
     }
     
     var coffeeAmount: Double {
@@ -142,16 +149,16 @@ struct FormRecordView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        RecordResultView(
-                            name: enteredName,
-                            size: selectedSizeCoffee,
-                            time: isTimeEnabled ? selectedTime : Date(),
-                            date: isCalendarEnabled ? selectedDate : Date(),
-                            caffeineCoffee: calculatedCaffeine,
-                            coffeeAmount: coffeeAmount,
-                            waterAmount: waterAmount,
-                            iconCoffee: iconCoffee
-                        )
+//                        RecordResultView(
+//                            name: enteredName,
+//                            size: selectedSizeCoffee,
+//                            time: isTimeEnabled ? selectedTime : Date(),
+//                            date: isCalendarEnabled ? selectedDate : Date(),
+//                            caffeineCoffee: calculatedCaffeine,
+//                            coffeeAmount: coffeeAmount,
+//                            waterAmount: waterAmount,
+//                            iconCoffee: iconCoffee
+//                        )
                     } label: {
                         HStack(spacing: 3) {
                            Text("Next")
@@ -169,5 +176,5 @@ struct FormRecordView: View {
 }
 
 //#Preview {
-//    FormRecordView(coffeeName: "Americano", caffeineCoffee: 200)
+//    EditRecord()
 //}

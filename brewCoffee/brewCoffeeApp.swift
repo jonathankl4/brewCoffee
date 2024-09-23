@@ -11,7 +11,8 @@ import SwiftUI
 struct brewCoffeeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreen()
+                .modelContainer(for: CoffeeRecords.self)
         }
     }
 }
