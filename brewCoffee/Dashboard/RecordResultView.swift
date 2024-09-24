@@ -15,6 +15,7 @@ struct RecordResultView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var showConfirmationAlert = false
     
     @Environment(\.modelContext) private var context
     
@@ -108,7 +109,13 @@ struct RecordResultView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        saveRecord()
+                        if totalCaffeineToday > 200 {
+                            // Tampilkan alert konfirmasi jika total kafein melebihi batas
+                            showConfirmationAlert = true
+                        } else {
+                            // Simpan record langsung jika tidak melebihi batas
+                            saveRecord()
+                        }
                     }) {
                         HStack(spacing: 3) {
                             Text("Add")
@@ -133,6 +140,14 @@ struct RecordResultView: View {
                     })
                 )
             }
+            .alert("Caffeine Limit Exceeded", isPresented: $showConfirmationAlert, actions: {
+                Button("Cancel", role: .cancel) { }
+                Button("Proceed", role: .destructive) {
+                    saveRecord()
+                }
+            }, message: {
+                Text("The total caffeine consumption exceeds the safe limit. Are you sure you want to proceed?")
+            })
         }
     }
     

@@ -31,7 +31,7 @@ struct DashboardView: View {
         let totalCoffeesToday = todayRecords.count
         
         // Mendapatkan waktu terakhir minum kopi
-        let lastCoffeeTime = todayRecords.sorted(by: { $0.date > $1.date }).first?.date
+        let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time
         
         // Logic untuk menentukan Next Coffee
         let nextCoffeeTime: String = {
