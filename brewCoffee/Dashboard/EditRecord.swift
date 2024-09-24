@@ -8,39 +8,38 @@
 import SwiftUI
 
 struct EditRecord: View {
-    var coffeeName: String
-    var caffeineCoffee: Double
-    var initialSize: String
-    var initialDate: Date
-    var initialTime: Date
+    @Binding var coffeeRecord: RecordsCoffee
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     @State private var enteredName: String
     @State private var selectedSizeCoffee: String
     @State private var selectedDate: Date
     @State private var selectedTime: Date
+    @State private var caffeineBase: Double
     @State private var isCalendarEnabled = false
     @State private var isTimeEnabled = false
     
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     let coffeeBase: Double = 13.0
     let waterBase: Double = 208.0
-    
+
     var sizeCoffee: [String] {
         ["¼ Cup", "½ Cup", "¾ Cup", "1 Cup", "1½ Cup", "2 Cup"]
     }
-
-    init(coffeeName: String, caffeineCoffee: Double, size: String, date: Date, time: Date) {
-        self.coffeeName = coffeeName
-        self.caffeineCoffee = caffeineCoffee
-        self.initialSize = size
-        self.initialDate = date
-        self.initialTime = time
-        // Inisialisasi state dengan nilai dari parameter
-        _enteredName = State(initialValue: coffeeName)
-        _selectedSizeCoffee = State(initialValue: size)
-        _selectedDate = State(initialValue: date)
-        _selectedTime = State(initialValue: time)
-    }
     
+    init(coffeeRecord: Binding<RecordsCoffee>) {
+        self._coffeeRecord = coffeeRecord
+        _enteredName = State(initialValue: coffeeRecord.wrappedValue.name)
+        _selectedSizeCoffee = State(initialValue: coffeeRecord.wrappedValue.size)
+        _selectedDate = State(initialValue: coffeeRecord.wrappedValue.date)
+        _selectedTime = State(initialValue: coffeeRecord.wrappedValue.time)
+        _caffeineBase = State(initialValue: coffeeRecord.wrappedValue.caffeineBase)
+    }
+
     var coffeeAmount: Double {
         switch selectedSizeCoffee {
         case "¼ Cup": return coffeeBase * 0.25
@@ -52,7 +51,7 @@ struct EditRecord: View {
         default: return coffeeBase
         }
     }
-    
+
     var waterAmount: Double {
         switch selectedSizeCoffee {
         case "¼ Cup": return waterBase * 0.25
@@ -64,15 +63,15 @@ struct EditRecord: View {
         default: return waterBase
         }
     }
-    
+
     var calculatedCaffeine: Double {
         switch selectedSizeCoffee {
-        case "¼ Cup": return caffeineCoffee * 0.25
-        case "½ Cup": return caffeineCoffee * 0.5
-        case "¾ Cup": return caffeineCoffee * 0.75
-        case "1½ Cup": return caffeineCoffee * 1.5
-        case "2 Cup": return caffeineCoffee * 2.0
-        default: return caffeineCoffee
+        case "¼ Cup": return caffeineBase * 0.25
+        case "½ Cup": return caffeineBase * 0.5
+        case "¾ Cup": return caffeineBase * 0.75
+        case "1½ Cup": return caffeineBase * 1.5
+        case "2 Cup": return caffeineBase * 2.0
+        default: return caffeineBase
         }
     }
     
@@ -98,7 +97,7 @@ struct EditRecord: View {
                         }
                     }
                 }
-                
+
                 Section(header: Text("Coffee Mixtures")
                     .padding(.leading, -12.5)
                     .bold()
@@ -115,7 +114,7 @@ struct EditRecord: View {
                         Text("\(Int(waterAmount)) ml")
                     }
                 }
-                
+
                 Section(header: Text("Drink Time")
                     .padding(.leading, -12.5)
                     .bold().foregroundColor(Color.warnacoklat)) {
@@ -147,31 +146,70 @@ struct EditRecord: View {
             .navigationTitle("Caffeine Record")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-//                        RecordResultView(
-//                            name: enteredName,
-//                            size: selectedSizeCoffee,
-//                            time: isTimeEnabled ? selectedTime : Date(),
-//                            date: isCalendarEnabled ? selectedDate : Date(),
-//                            caffeineCoffee: calculatedCaffeine,
-//                            coffeeAmount: coffeeAmount,
-//                            waterAmount: waterAmount,
-//                            iconCoffee: iconCoffee
-//                        )
-                    } label: {
-                        HStack(spacing: 3) {
-                           Text("Next")
-                               .bold()
-                           Image(systemName: "chevron.right")
-                               .bold()
-                       }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
                     }
                     .foregroundColor(Color.warnacoklat)
                 }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        saveChanges()
+                    }, label: {
+                           Text("Update")
+                               .bold()
+                    })
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"), action: {
+                        if alertTitle == "Success" {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                dismissToRoot()
+                            }
+                        }
+                    })
+                )
             }
         }
         .accentColor(Color.warnacoklat)
+    }
+    
+    private func saveChanges() {
+        print("Attempting to save changes")
+        coffeeRecord.name = enteredName
+        coffeeRecord.size = selectedSizeCoffee
+        coffeeRecord.date = selectedDate
+        coffeeRecord.time = selectedTime
+        coffeeRecord.caffeineCoffee = calculatedCaffeine
+        coffeeRecord.coffeeAmount = coffeeAmount
+        coffeeRecord.waterAmount = waterAmount
+        
+        do {
+            try modelContext.save()
+            alertTitle = "Success"
+            alertMessage = "Record updated successfully."
+            showAlert = true
+        } catch {
+            alertTitle = "Error"
+            alertMessage = "Failed to save record: \(error.localizedDescription)"
+            showAlert = true
+        }
+    }
+    
+    func dismissToRoot() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

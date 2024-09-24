@@ -13,7 +13,7 @@
 		0401C5792C96719B00D002E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0401C5782C96719B00D002E1 /* Preview Assets.xcassets */; };
 		040A9E4A2C9D057E00CD3B40 /* RecordResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E492C9D057E00CD3B40 /* RecordResultView.swift */; };
 		040A9E4D2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E4B2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld */; };
-		040A9E4F2C9EB7C300CD3B40 /* CoffeeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */; };
+		040A9E4F2C9EB7C300CD3B40 /* RecordsCoffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E4E2C9EB7C300CD3B40 /* RecordsCoffee.swift */; };
 		040A9E512CA077E500CD3B40 /* EditRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A9E502CA077E500CD3B40 /* EditRecord.swift */; };
 		040CAC5D2C9BDE30000299E3 /* CoffeeBeans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */; };
 		040CAC5F2C9BDF24000299E3 /* AddRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */; };
@@ -50,7 +50,7 @@
 		0401C5782C96719B00D002E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		040A9E492C9D057E00CD3B40 /* RecordResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResultView.swift; sourceTree = "<group>"; };
 		040A9E4C2C9D311300CD3B40 /* CoffeeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoffeeModel.xcdatamodel; sourceTree = "<group>"; };
-		040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeRecord.swift; sourceTree = "<group>"; };
+		040A9E4E2C9EB7C300CD3B40 /* RecordsCoffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsCoffee.swift; sourceTree = "<group>"; };
 		040A9E502CA077E500CD3B40 /* EditRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecord.swift; sourceTree = "<group>"; };
 		040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBeans.swift; sourceTree = "<group>"; };
 		040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordView.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 			children = (
 				040CAC5C2C9BDE30000299E3 /* CoffeeBeans.swift */,
 				040CACA12C9C4E48000299E3 /* CoffeeDrinks.swift */,
-				040A9E4E2C9EB7C300CD3B40 /* CoffeeRecord.swift */,
+				040A9E4E2C9EB7C300CD3B40 /* RecordsCoffee.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,11 +158,11 @@
 			isa = PBXGroup;
 			children = (
 				04B3FC322C991EAF0042E286 /* DashboardView.swift */,
-				04B3FC3E2C9A6E6B0042E286 /* HistoryLogView.swift */,
 				040CAC5E2C9BDF24000299E3 /* AddRecordView.swift */,
 				040CAC9F2C9C384E000299E3 /* FormRecordView.swift */,
-				040A9E492C9D057E00CD3B40 /* RecordResultView.swift */,
+				04B3FC3E2C9A6E6B0042E286 /* HistoryLogView.swift */,
 				040A9E502CA077E500CD3B40 /* EditRecord.swift */,
+				040A9E492C9D057E00CD3B40 /* RecordResultView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -299,7 +299,7 @@
 				040CAC9C2C9C37FD000299E3 /* CoffeeDetailSectionView.swift in Sources */,
 				040CAC9B2C9C37FD000299E3 /* CoffeeRowView.swift in Sources */,
 				040CACA22C9C4E48000299E3 /* CoffeeDrinks.swift in Sources */,
-				040A9E4F2C9EB7C300CD3B40 /* CoffeeRecord.swift in Sources */,
+				040A9E4F2C9EB7C300CD3B40 /* RecordsCoffee.swift in Sources */,
 				040A9E4D2C9D311300CD3B40 /* CoffeeModel.xcdatamodeld in Sources */,
 				040CAC5F2C9BDF24000299E3 /* AddRecordView.swift in Sources */,
 				04B3FC312C99192D0042E286 /* GraphCaffeine.swift in Sources */,

@@ -12,7 +12,7 @@ struct brewCoffeeApp: App {
     var body: some Scene {
         WindowGroup {
             SplashScreen()
-                .modelContainer(for: CoffeeRecords.self)
+                .modelContainer(for: RecordsCoffee.self)
         }
     }
 }

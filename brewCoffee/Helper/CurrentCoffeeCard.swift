@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrentCoffeeCard: View {
-    var coffeeRecord: CoffeeRecords
+    var coffeeRecord: RecordsCoffee
     var body: some View {
         HStack {
             Image(coffeeRecord.iconCoffee)

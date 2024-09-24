@@ -9,14 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecordResultView: View {
-    var name: String
-    var size: String
-    var time: Date
-    var date: Date
-    var caffeineCoffee: Double
-    var coffeeAmount: Double
-    var waterAmount: Double
-    var iconCoffee: String
+    var coffeeRecord: RecordsCoffee
     
     @State private var showAlert = false
     @State private var alertTitle = ""
@@ -27,13 +20,13 @@ struct RecordResultView: View {
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .full
-        return formatter.string(from: date)
+        return formatter.string(from: coffeeRecord.date)
     }
 
     var formattedTime: String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        return formatter.string(from: time)
+        return formatter.string(from: coffeeRecord.time)
     }
     
     var body: some View {
@@ -44,7 +37,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine present in your body after consumption.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("\(Int(caffeineCoffee)) mg")
+                        Text("\(Int(coffeeRecord.caffeineCoffee)) mg")
                     }
                 }
                 
@@ -53,7 +46,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("\(Int(caffeineCoffee))/200 mg")
+                        Text("\(Int(coffeeRecord.caffeineCoffee))/200 mg")
                     }
                 }
                 
@@ -62,14 +55,14 @@ struct RecordResultView: View {
                         Text("Name")
                           Spacer()
                             
-                        Text(name)
+                        Text(coffeeRecord.name)
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Size")
                           Spacer()
                             
-                        Text(size)
+                        Text(coffeeRecord.size)
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
@@ -88,14 +81,14 @@ struct RecordResultView: View {
                         Text("Coffee")
                           Spacer()
                             
-                        Text("\(Int(coffeeAmount)) mg")
+                        Text("\(Int(coffeeRecord.coffeeAmount)) mg")
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
                         Text("Water")
                           Spacer()
                             
-                        Text("\(Int(waterAmount)) ml")
+                        Text("\(Int(coffeeRecord.waterAmount)) ml")
                             .multilineTextAlignment(.trailing)
                     }
                 }
@@ -135,16 +128,7 @@ struct RecordResultView: View {
     
     func saveRecord() {
         
-        let newRecord = CoffeeRecords(
-            name: name,
-            size: size,
-            date: date,
-            time: time,
-            coffeeAmount: coffeeAmount,
-            caffeineCoffee: caffeineCoffee,
-            waterAmount: waterAmount,
-            iconCoffee: iconCoffee
-        )
+        let newRecord = coffeeRecord
         
         context.insert(newRecord)
         do {

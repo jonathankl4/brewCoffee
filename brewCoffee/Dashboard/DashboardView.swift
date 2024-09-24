@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct DashboardView: View {
-    @Query var coffeeRecord: [CoffeeRecords]
+    @Query var coffeeRecord: [RecordsCoffee]
     @State private var isNotificationEnabled = false
     @State private var showSheet = false
     

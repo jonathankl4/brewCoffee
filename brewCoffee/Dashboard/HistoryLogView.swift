@@ -9,9 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct HistoryLogView: View {
-    @Query var coffeeRecord: [CoffeeRecords]
+    @Query var coffeeRecord: [RecordsCoffee]
     @State private var date = Date()
-    @State private var selectedRecord: CoffeeRecords?
+    @State private var selectedRecord: RecordsCoffee?
     @State private var showEditRecord = false
     @State private var showDeleteConfirmation = false
     
@@ -46,7 +46,7 @@ struct HistoryLogView: View {
                 .padding(.bottom, 20)
                 
                 VStack {
-                    SummaryLog(tgl: formattedDate(date), desc: "you drank \(Int(totalCaffeineToday)) mg of caffeine on that today")
+                    SummaryLog(tgl: formattedDate(date), desc: "You drank \(Int(totalCaffeineToday)) mg of caffeine on that today")
                     Divider()
                     HStack {
                         Text("Time")
@@ -109,16 +109,15 @@ struct HistoryLogView: View {
                     .foregroundColor(Color.warnacoklat)
                 }
             }
-            .sheet(isPresented: $showEditRecord) {
-                if let selectedRecord = selectedRecord {
-                    EditRecord(
-                        coffeeName: selectedRecord.name,
-                        caffeineCoffee: selectedRecord.caffeineCoffee,
-                        size: selectedRecord.size,
-                        date: selectedRecord.date,
-                        time: selectedRecord.time
-                    )
-                }
+            .sheet(item: $selectedRecord) { record in
+                let bindingRecord = Binding(
+                    get: { record },
+                    set: { selectedRecord = $0 }
+                )
+                EditRecord(coffeeRecord: bindingRecord)
+                    .onAppear {
+                        print("EditRecord appeared with record: \(record)")
+                    }
             }
             .alert(isPresented: $showDeleteConfirmation) {
                 Alert(
@@ -135,7 +134,7 @@ struct HistoryLogView: View {
         }
     }
     
-    func deleteRecord(_ record: CoffeeRecords) {
+    func deleteRecord(_ record: RecordsCoffee) {
         context.delete(record)
         do {
             try context.save()
@@ -159,10 +158,13 @@ struct SummaryLog: View {
         VStack(alignment: .leading){
             Text(tgl).bold().font(.system(size: 18))
             Text(desc)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
+
+
 
 #Preview {
     HistoryLogView()

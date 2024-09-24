@@ -9,7 +9,7 @@ import SwiftUI
 
 struct historyList: View {
     
-    var coffeeRecord: CoffeeRecords
+    var coffeeRecord: RecordsCoffee
     
     var body: some View {
         HStack {

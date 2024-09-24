@@ -143,14 +143,17 @@ struct FormRecordView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
                         RecordResultView(
-                            name: enteredName,
-                            size: selectedSizeCoffee,
-                            time: isTimeEnabled ? selectedTime : Date(),
-                            date: isCalendarEnabled ? selectedDate : Date(),
-                            caffeineCoffee: calculatedCaffeine,
-                            coffeeAmount: coffeeAmount,
-                            waterAmount: waterAmount,
-                            iconCoffee: iconCoffee
+                            coffeeRecord: RecordsCoffee(
+                                name: enteredName,
+                                size: selectedSizeCoffee,
+                                date: isTimeEnabled ? selectedDate : Date(),
+                                time: isTimeEnabled ? selectedTime : Date(),
+                                coffeeAmount: coffeeAmount,
+                                caffeineCoffee: calculatedCaffeine,
+                                waterAmount: waterAmount,
+                                iconCoffee: iconCoffee,
+                                caffeineBase: caffeineCoffee
+                            )
                         )
                     } label: {
                         HStack(spacing: 3) {

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class CoffeeRecords {
+final class RecordsCoffee: Identifiable {
     @Attribute(.unique) var id: UUID
     var name: String
     var size: String
@@ -19,9 +19,10 @@ final class CoffeeRecords {
     var caffeineCoffee: Double
     var waterAmount: Double
     var iconCoffee: String
+    var caffeineBase: Double
 
-    init(name: String, size: String, date: Date, time: Date, coffeeAmount: Double, caffeineCoffee: Double, waterAmount: Double, iconCoffee: String) {
-        self.id = UUID()
+    init(id: UUID = UUID(), name: String, size: String, date: Date, time: Date, coffeeAmount: Double, caffeineCoffee: Double, waterAmount: Double, iconCoffee: String, caffeineBase: Double) {
+        self.id = id
         self.name = name
         self.size = size
         self.date = date
@@ -30,5 +31,6 @@ final class CoffeeRecords {
         self.caffeineCoffee = caffeineCoffee
         self.waterAmount = waterAmount
         self.iconCoffee = iconCoffee
+        self.caffeineBase = caffeineBase
     }
 }
