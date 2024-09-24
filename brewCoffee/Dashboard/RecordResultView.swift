@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecordResultView: View {
+    @Query var coffeeToday: [RecordsCoffee]
     var coffeeRecord: RecordsCoffee
     
     @State private var showAlert = false
@@ -30,6 +31,15 @@ struct RecordResultView: View {
     }
     
     var body: some View {
+        // Filter record yang waktunya hari ini
+        let todayRecords = coffeeToday.filter { record in
+            Calendar.current.isDateInToday(record.date)
+        }
+        
+        let totalCaffeineToday = todayRecords.reduce(0) { total, record in
+            total + record.caffeineCoffee
+        } + coffeeRecord.caffeineCoffee
+        
         NavigationStack {
             Form {
                 Section(header: Text("Body Caffeine").padding(.leading, -12.5).bold().foregroundColor(Color.warnacoklat)) {
@@ -46,7 +56,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("\(Int(coffeeRecord.caffeineCoffee))/200 mg")
+                        Text("\(Int(totalCaffeineToday))/200 mg")
                     }
                 }
                 

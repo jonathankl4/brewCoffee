@@ -50,7 +50,7 @@ struct DashboardView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        SummaryCard(img: "cup.and.saucer.fill", jml: "\(Int(totalCaffeineToday))", ket: "Today's Caffeine")
+                        SummaryCard(img: "cup.and.saucer.fill", jml: "\(Int(totalCaffeineToday))/200", ket: "Today's Caffeine")
                         SummaryCard(img: "cup.and.saucer.fill", jml: "\(totalCoffeesToday)", ket: "Today's Coffee")
                         SummaryCard(img: "clock.fill", jml: lastCoffeeTime != nil ? formattedTime(from: lastCoffeeTime!) : "-", ket: "Current Coffee")
                         SummaryCard(img: "clock.badge.checkmark.fill", jml: nextCoffeeTime, ket: "Next Coffee")
