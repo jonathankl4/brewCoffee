@@ -10,7 +10,7 @@ import SwiftData
 
 struct DashboardView: View {
     @Query var coffeeRecord: [RecordsCoffee]
-    @State private var isNotificationEnabled = false
+    @State private var isNotificationEnabled = true
     @State private var showSheet = false
     
     @State private var showAddRecord = false
@@ -33,19 +33,6 @@ struct DashboardView: View {
         // Mendapatkan waktu terakhir minum kopi
         let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time
         
-        // Logic untuk menentukan Next Coffee
-        let nextCoffeeTime: String = {
-            if let lastTime = lastCoffeeTime {
-                // Contoh: pengguna bisa minum kopi lagi 3 jam setelah minum terakhir
-                let nextTime = Calendar.current.date(byAdding: .hour, value: 3, to: lastTime)
-                let formatter = DateFormatter()
-                formatter.timeStyle = .short
-                return formatter.string(from: nextTime!)
-            } else {
-                return "-"
-            }
-        }()
-        
         NavigationStack {
             ScrollView {
                 VStack {
@@ -53,7 +40,7 @@ struct DashboardView: View {
                         SummaryCard(img: "cup.and.saucer.fill", jml: "\(Int(totalCaffeineToday))/200", ket: "Today's Caffeine")
                         SummaryCard(img: "cup.and.saucer.fill", jml: "\(totalCoffeesToday)", ket: "Today's Coffee")
                         SummaryCard(img: "clock.fill", jml: lastCoffeeTime != nil ? formattedTime(from: lastCoffeeTime!) : "-", ket: "Current Coffee")
-                        SummaryCard(img: "clock.badge.checkmark.fill", jml: nextCoffeeTime, ket: "Next Coffee")
+                        SummaryCard(img: "clock.badge.checkmark.fill", jml: nextCoffeeTimeFormat(from: lastCoffeeTime), ket: "Next Coffee")
                     }
                     .padding(.bottom, 20)
                     
@@ -79,7 +66,7 @@ struct DashboardView: View {
                         }) {
                             HStack {
                                 Image(systemName: "plus")
-                                Text("Add Recordss")
+                                Text("Add Records")
                             }
                             .font(.system(size: 14))
                             .bold()
@@ -144,14 +131,76 @@ struct DashboardView: View {
                     NotificationSettingsView(isNotificationEnabled: $isNotificationEnabled, showSheet: $showSheet)
                         .presentationDetents([.fraction(0.25)])
                 }
+                .onAppear {
+                    // Update notification when view appears
+                    updateNextCoffeeNotification()
+                }
+                .onAppear {
+                    UNUserNotificationCenter.current().delegate = NotificationManager.shared
+                    updateNextCoffeeNotification() // Memastikan notifikasi diupdate saat view muncul
+                }
+                .onChange(of: coffeeRecord) { _ in
+                    // Update notification when records change
+                    updateNextCoffeeNotification()
+                }
             }
+        }
+    }
+    
+    // Fungsi baru yang mengatur jadwal notifikasi
+    func updateNextCoffeeNotification() {
+        if let lastTime = coffeeRecord.sorted(by: { $0.time > $1.time }).first?.time {
+            // Misalnya pengguna boleh minum kopi lagi setelah 3 jam
+            let nextTime = Calendar.current.date(byAdding: .minute, value: 1, to: lastTime)
+            if let nextCoffeeTime = nextTime {
+                scheduleNextCoffeeNotification(at: nextCoffeeTime)
+            }
+        } else {
+            print("Belum ada record kopi untuk hari ini")
         }
     }
     
     func formattedTime(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
+        formatter.timeZone = TimeZone.current
         return formatter.string(from: date)
+    }
+    
+    func nextCoffeeTimeFormat(from lastCoffeeTime: Date?) -> String {
+        guard let lastCoffeeTime = lastCoffeeTime,
+              let nextTime = Calendar.current.date(byAdding: .minute, value: 1, to: lastCoffeeTime) else {
+            return "-"
+        }
+        return formattedTime(from: nextTime)
+    }
+    
+    func scheduleNextCoffeeNotification(at nextTime: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "It's Coffee Time!"
+        content.body = "You can now enjoy your next coffee."
+        content.sound = UNNotificationSound.default
+        
+        // Konversi nextTime ke timezone lokal
+        let localNextTime = Calendar.current.date(bySetting: .second, value: 0, of: nextTime) ?? nextTime
+        let timeInterval = localNextTime.timeIntervalSinceNow
+        guard timeInterval > 0 else {
+            print("Error: nextTime is in the past")
+            return
+        }
+        
+        print("Scheduling notification for \(localNextTime) with interval \(timeInterval) seconds")
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled successfully for \(localNextTime)")
+            }
+        }
     }
 }
 
@@ -164,6 +213,13 @@ struct NotificationSettingsView: View {
             Form {
                 Section {
                     Toggle("Enable Notifications", isOn: $isNotificationEnabled)
+                        .onChange(of: isNotificationEnabled) { isEnabled in
+                            if isEnabled {
+                                requestNotificationPermission()
+                            } else {
+                                disableNotifications()
+                            }
+                        }
                         .padding()
                         .tint(Color.warnacoklat)
                 }
@@ -181,6 +237,20 @@ struct NotificationSettingsView: View {
             }
         }
         .background(Color.cokelatMuda)
+    }
+    
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("Notification permission error: \(error.localizedDescription)")
+            }
+            isNotificationEnabled = granted
+        }
+    }
+    
+    func disableNotifications() {
+        // Ini adalah tempat Anda menonaktifkan notifikasi yang sebelumnya dijadwalkan
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
 

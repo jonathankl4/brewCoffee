@@ -16,6 +16,7 @@ struct RecordResultView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showConfirmationAlert = false
+    @State private var isRecordAdded = false
     
     @Environment(\.modelContext) private var context
     
@@ -31,15 +32,35 @@ struct RecordResultView: View {
         return formatter.string(from: coffeeRecord.time)
     }
     
-    var body: some View {
-        // Filter record yang waktunya hari ini
+    // Menghitung total kafein hari ini + kafein kopi yang akan ditambahkan (preview)
+    var totalCaffeinePreview: Double {
         let todayRecords = coffeeToday.filter { record in
             Calendar.current.isDateInToday(record.date)
         }
         
-        let totalCaffeineToday = todayRecords.reduce(0) { total, record in
+        if todayRecords.isEmpty {
+            // Jika belum ada record hari ini, tampilkan nilai kafein dari kopi yang akan ditambahkan
+            return coffeeRecord.caffeineCoffee
+        } else {
+            // Jika ada, hitung total kafein hari ini + kafein dari kopi yang akan ditambahkan
+            return todayRecords.reduce(0) { total, record in
+                total + record.caffeineCoffee
+            } + coffeeRecord.caffeineCoffee
+        }
+    }
+    
+    // Menghitung total kafein hari ini tanpa kafein dari kopi yang akan ditambahkan
+    var totalCaffeineToday: Double {
+        let todayRecords = coffeeToday.filter { record in
+            Calendar.current.isDateInToday(record.date)
+        }
+        
+        return todayRecords.reduce(0) { total, record in
             total + record.caffeineCoffee
-        } + coffeeRecord.caffeineCoffee
+        }
+    }
+    
+    var body: some View {
         
         NavigationStack {
             Form {
@@ -57,7 +78,7 @@ struct RecordResultView: View {
                         Text("The amount of caffeine still in the body after initial consumption that is considered safe.")
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("\(Int(totalCaffeineToday))/200 mg")
+                        Text("\(Int(isRecordAdded ? totalCaffeineToday : totalCaffeinePreview))/200 mg")
                     }
                 }
                 
@@ -152,19 +173,27 @@ struct RecordResultView: View {
     }
     
     func saveRecord() {
+        // Tambahkan nilai kafein baru ke total kafein hari ini saat penyimpanan
+        let updatedCaffeineToday = totalCaffeineToday + coffeeRecord.caffeineCoffee
         
-        let newRecord = coffeeRecord
-        
-        context.insert(newRecord)
-        do {
-            try context.save()
-            alertTitle = "Success"
-            alertMessage = "Record added successfully."
+        if updatedCaffeineToday > 200 {
+            alertTitle = "Warning"
+            alertMessage = "The total caffeine consumption exceeds the safe limit."
             showAlert = true
-        } catch {
-            alertTitle = "Error"
-            alertMessage = "Failed to save record: \(error.localizedDescription)"
-            showAlert = true
+        } else {
+            let newRecord = coffeeRecord
+            context.insert(newRecord)
+            do {
+                try context.save()
+                alertTitle = "Success"
+                alertMessage = "Record added successfully."
+                showAlert = true
+                isRecordAdded = true
+            } catch {
+                alertTitle = "Error"
+                alertMessage = "Failed to save record: \(error.localizedDescription)"
+                showAlert = true
+            }
         }
     }
     

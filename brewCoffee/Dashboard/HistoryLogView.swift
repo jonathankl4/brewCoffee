@@ -12,6 +12,7 @@ struct HistoryLogView: View {
     @Query var coffeeRecord: [RecordsCoffee]
     @State private var date = Date()
     @State private var selectedRecord: RecordsCoffee?
+    @State private var recordToDelete: RecordsCoffee?
     @State private var showEditRecord = false
     @State private var showDeleteConfirmation = false
     
@@ -76,7 +77,7 @@ struct HistoryLogView: View {
                                     .tint(.blue)
 
                                     Button(action: {
-                                        selectedRecord = record
+                                        recordToDelete = record
                                         showDeleteConfirmation = true
                                     }) {
                                         Label("Delete", systemImage: "trash")
@@ -124,8 +125,8 @@ struct HistoryLogView: View {
                     title: Text("Delete Record"),
                     message: Text("Are you sure you want to delete this record?"),
                     primaryButton: .destructive(Text("Delete")) {
-                        if let recordToDelete = selectedRecord {
-                            deleteRecord(recordToDelete)
+                        if let recordToDelete = recordToDelete {
+                            deleteRecord(recordToDelete) // Hapus rekaman
                         }
                     },
                     secondaryButton: .cancel()

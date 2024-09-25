@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct brewCoffeeApp: App {
+    init() {
+            NotificationManager.shared.requestNotificationPermission()
+    }
+    
     var body: some Scene {
         WindowGroup {
             SplashScreen()

@@ -72,23 +72,30 @@ struct GifImage: UIViewRepresentable {
 
 struct SplashScreen: View {
     @State private var showSplash = true
+    @State private var opacity = 1.0 // Untuk animasi fade out
 
     var body: some View {
-        Group {
+        ZStack {
             if showSplash {
-                // Splash Screen
                 splashscreen()
+                    .transition(.opacity)
+                    .opacity(opacity)
                     .onAppear {
-                        // Tampilkan splash screen selama 3 detik
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            showSplash = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                            withAnimation(.easeOut(duration: 0.5)) {
+                                opacity = 0.0
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                showSplash = false
+                            }
                         }
                     }
             } else {
-                // Tampilan utama setelah splash screen
-                ContentView() // Ganti dengan tampilan utama Anda
+                ContentView()
+                    .transition(.opacity)
             }
         }
+        .animation(.easeInOut, value: showSplash)
     }
 }
 

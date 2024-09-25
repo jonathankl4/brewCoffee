@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct GraphCaffeine: View {
-    // Fungsi untuk menghitung jumlah kafein yang berkurang tiap jam
+    
     func generateCaffeineData(startingCaffeine: Double, reduction: Double, startTime: Int) -> [(String, Double)] {
         var data: [(String, Double)] = []
         var caffeine = startingCaffeine
@@ -29,10 +29,10 @@ struct GraphCaffeine: View {
         return data
     }
     
-    // Data yang dihasilkan dari fungsi
     let startingCaffeine: Double = 200
-    let caffeineReduction: Double = 100
-    let startTime: Int = 9 // Waktu mulai dinamis, misalnya mulai dari jam 9 pagi
+    let caffeineReduction: Double = 10
+    let startTime: Int = 9
+    let threshold: Double = 100
 
     var body: some View {
         let caffeineData = generateCaffeineData(startingCaffeine: startingCaffeine, reduction: caffeineReduction, startTime: startTime)
@@ -45,6 +45,20 @@ struct GraphCaffeine: View {
                 )
                 .foregroundStyle(Color.warnacoklat)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
+            }
+            
+            RuleMark(
+                y: .value("Threshold", threshold)
+            )
+            .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
+            .foregroundStyle(Color.secondary)
+            .annotation(position: .topTrailing) {
+                Text("Threshold \(Int(threshold)) mg")
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    .padding(5)
+                    .background(Color.white.opacity(0.7))
+                    .cornerRadius(5)
             }
         }
         .chartScrollableAxes(.horizontal)
