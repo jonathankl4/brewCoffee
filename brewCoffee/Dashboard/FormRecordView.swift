@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FormRecordView: View {
+    @EnvironmentObject var caffeineData: CaffeineManager
     var coffeeName: String
     var caffeineCoffee: Double
     var iconCoffee: String

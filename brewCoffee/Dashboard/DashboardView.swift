@@ -16,15 +16,12 @@ struct DashboardView: View {
     @State private var showAddRecord = false
     @State private var showLogDetail = false
     
+    @EnvironmentObject var caffeineData: CaffeineManager
+    
     var body: some View {
         // Filter record yang waktunya hari ini
         let todayRecords = coffeeRecord.filter { record in
             Calendar.current.isDateInToday(record.date)
-        }
-        
-        // Menghitung total kafein hari ini
-        let totalCaffeineToday = todayRecords.reduce(0) { total, record in
-            total + record.caffeineCoffee
         }
         
         // Menghitung jumlah kopi hari ini
@@ -33,11 +30,12 @@ struct DashboardView: View {
         // Mendapatkan waktu terakhir minum kopi
         let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time
         
+        
         NavigationStack {
             ScrollView {
                 VStack {
                     HStack {
-                        SummaryCard(img: "cup.and.saucer.fill", jml: "\(Int(totalCaffeineToday))/200", ket: "Today's Caffeine")
+                        SummaryCard(img: "cup.and.saucer.fill", jml: "\(Int(caffeineData.currentCaffeine))", ket: "Today's Caffeine")
                         SummaryCard(img: "cup.and.saucer.fill", jml: "\(totalCoffeesToday)", ket: "Today's Coffee")
                         SummaryCard(img: "clock.fill", jml: lastCoffeeTime != nil ? formattedTime(from: lastCoffeeTime!) : "-", ket: "Current Coffee")
                         SummaryCard(img: "clock.badge.checkmark.fill", jml: nextCoffeeTimeFormat(from: lastCoffeeTime), ket: "Next Coffee")
@@ -132,32 +130,41 @@ struct DashboardView: View {
                         .presentationDetents([.fraction(0.25)])
                 }
                 .onAppear {
-                    // Update notification when view appears
-                    updateNextCoffeeNotification()
-                }
-                .onAppear {
                     UNUserNotificationCenter.current().delegate = NotificationManager.shared
-                    updateNextCoffeeNotification() // Memastikan notifikasi diupdate saat view muncul
+                    updateNextCoffeeNotification()
+                    caffeineData.resetCaffeineValue(for: todayRecords)
+                    caffeineData.startCaffeineReductionTimer()
                 }
                 .onChange(of: coffeeRecord) { _ in
-                    // Update notification when records change
                     updateNextCoffeeNotification()
+                    caffeineData.resetCaffeineValue(for: todayRecords)
                 }
+            }
+            .refreshable {
+                // Aksi yang dilakukan saat user swipe untuk refresh
+                caffeineData.resetCaffeineValue(for: todayRecords)
             }
         }
     }
     
-    // Fungsi baru yang mengatur jadwal notifikasi
     func updateNextCoffeeNotification() {
         if let lastTime = coffeeRecord.sorted(by: { $0.time > $1.time }).first?.time {
             // Misalnya pengguna boleh minum kopi lagi setelah 3 jam
-            let nextTime = Calendar.current.date(byAdding: .minute, value: 1, to: lastTime)
+            let nextTime = Calendar.current.date(byAdding: .hour, value: 5, to: lastTime)
             if let nextCoffeeTime = nextTime {
                 scheduleNextCoffeeNotification(at: nextCoffeeTime)
             }
         } else {
             print("Belum ada record kopi untuk hari ini")
         }
+    }
+    
+    func nextCoffeeTimeFormat(from lastCoffeeTime: Date?) -> String {
+        guard let lastCoffeeTime = lastCoffeeTime,
+              let nextTime = Calendar.current.date(byAdding: .hour, value: 5, to: lastCoffeeTime) else {
+            return "-"
+        }
+        return formattedTime(from: nextTime)
     }
     
     func formattedTime(from date: Date) -> String {
@@ -167,21 +174,13 @@ struct DashboardView: View {
         return formatter.string(from: date)
     }
     
-    func nextCoffeeTimeFormat(from lastCoffeeTime: Date?) -> String {
-        guard let lastCoffeeTime = lastCoffeeTime,
-              let nextTime = Calendar.current.date(byAdding: .minute, value: 1, to: lastCoffeeTime) else {
-            return "-"
-        }
-        return formattedTime(from: nextTime)
-    }
-    
     func scheduleNextCoffeeNotification(at nextTime: Date) {
         let content = UNMutableNotificationContent()
         content.title = "It's Coffee Time!"
         content.body = "You can now enjoy your next coffee."
         content.sound = UNNotificationSound.default
         
-        // Konversi nextTime ke timezone lokal
+        // Convert nextTime to local timezone
         let localNextTime = Calendar.current.date(bySetting: .second, value: 0, of: nextTime) ?? nextTime
         let timeInterval = localNextTime.timeIntervalSinceNow
         guard timeInterval > 0 else {

@@ -10,6 +10,7 @@ import UserNotifications
 
 @main
 struct brewCoffeeApp: App {
+    @StateObject private var caffeineViewModel = CaffeineManager()
     init() {
             NotificationManager.shared.requestNotificationPermission()
     }
@@ -18,6 +19,7 @@ struct brewCoffeeApp: App {
         WindowGroup {
             SplashScreen()
                 .modelContainer(for: RecordsCoffee.self)
+                .environmentObject(caffeineViewModel) 
         }
     }
 }

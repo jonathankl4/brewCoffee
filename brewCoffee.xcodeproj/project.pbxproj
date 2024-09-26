@@ -20,6 +20,7 @@
 		040CACA02C9C384E000299E3 /* FormRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CAC9F2C9C384E000299E3 /* FormRecordView.swift */; };
 		040CACA22C9C4E48000299E3 /* CoffeeDrinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CACA12C9C4E48000299E3 /* CoffeeDrinks.swift */; };
 		044C0BD42CA39FAA001CC56D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C0BD32CA39FA9001CC56D /* NotificationManager.swift */; };
+		044C0BD62CA45EB4001CC56D /* CaffeineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C0BD52CA45EB4001CC56D /* CaffeineManager.swift */; };
 		049FAFC12C9934160085E881 /* DetailCoffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049FAFC02C9934160085E881 /* DetailCoffee.swift */; };
 		04B3FC272C990F8F0042E286 /* SummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC262C990F8F0042E286 /* SummaryCard.swift */; };
 		04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */; };
@@ -48,6 +49,7 @@
 		040CAC9F2C9C384E000299E3 /* FormRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRecordView.swift; sourceTree = "<group>"; };
 		040CACA12C9C4E48000299E3 /* CoffeeDrinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeDrinks.swift; sourceTree = "<group>"; };
 		044C0BD32CA39FA9001CC56D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		044C0BD52CA45EB4001CC56D /* CaffeineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaffeineManager.swift; sourceTree = "<group>"; };
 		049FAFC02C9934160085E881 /* DetailCoffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoffee.swift; sourceTree = "<group>"; };
 		04B3FC262C990F8F0042E286 /* SummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCard.swift; sourceTree = "<group>"; };
 		04B3FC2A2C9916DD0042E286 /* CurrentCoffeeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCoffeeCard.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				04B3FC372C9928610042E286 /* Coffee */,
 				04B3FC202C990E180042E286 /* Dashboard */,
 				0401C5712C96719A00D002E1 /* brewCoffeeApp.swift */,
+				044C0BD52CA45EB4001CC56D /* CaffeineManager.swift */,
 				044C0BD32CA39FA9001CC56D /* NotificationManager.swift */,
 				0401C5732C96719A00D002E1 /* ContentView.swift */,
 				0401C5752C96719B00D002E1 /* Assets.xcassets */,
@@ -250,6 +253,7 @@
 				0401C5722C96719A00D002E1 /* brewCoffeeApp.swift in Sources */,
 				044C0BD42CA39FAA001CC56D /* NotificationManager.swift in Sources */,
 				040A9E512CA077E500CD3B40 /* EditRecord.swift in Sources */,
+				044C0BD62CA45EB4001CC56D /* CaffeineManager.swift in Sources */,
 				040A9E4A2C9D057E00CD3B40 /* RecordResultView.swift in Sources */,
 				04B3FC2B2C9916DD0042E286 /* CurrentCoffeeCard.swift in Sources */,
 				04B3FC3F2C9A6E6B0042E286 /* HistoryLogView.swift in Sources */,

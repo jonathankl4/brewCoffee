@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecordResultView: View {
+    @EnvironmentObject var caffeineData: CaffeineManager
     @Query var coffeeToday: [RecordsCoffee]
     var coffeeRecord: RecordsCoffee
     
@@ -44,7 +45,7 @@ struct RecordResultView: View {
         } else {
             // Jika ada, hitung total kafein hari ini + kafein dari kopi yang akan ditambahkan
             return todayRecords.reduce(0) { total, record in
-                total + record.caffeineCoffee
+                total + caffeineData.currentCaffeine
             } + coffeeRecord.caffeineCoffee
         }
     }
@@ -58,6 +59,21 @@ struct RecordResultView: View {
         return todayRecords.reduce(0) { total, record in
             total + record.caffeineCoffee
         }
+    }
+    
+    var nextAllowedCoffeeTime: Date? {
+        let todayRecords = coffeeToday.filter { record in
+            Calendar.current.isDateInToday(record.date)
+        }
+        
+        // Sort records by time and get the most recent one
+        if let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time {
+            // Add 3 hours to the last coffee time to get the next allowed coffee time
+            return Calendar.current.date(byAdding: .hour, value: 5, to: lastCoffeeTime)
+        }
+        
+        // If there are no coffee records today, allow coffee now
+        return nil
     }
     
     var body: some View {
@@ -164,7 +180,19 @@ struct RecordResultView: View {
             .alert("Caffeine Limit Exceeded", isPresented: $showConfirmationAlert, actions: {
                 Button("Cancel", role: .cancel) { }
                 Button("Proceed", role: .destructive) {
-                    saveRecord()
+                    let newRecord = coffeeRecord
+                    context.insert(newRecord)
+                    do {
+                        try context.save()
+                        alertTitle = "Success"
+                        alertMessage = "Record added successfully."
+                        showAlert = true
+                        isRecordAdded = true
+                    } catch {
+                        alertTitle = "Error"
+                        alertMessage = "Failed to save record: \(error.localizedDescription)"
+                        showAlert = true
+                    }
                 }
             }, message: {
                 Text("The total caffeine consumption exceeds the safe limit. Are you sure you want to proceed?")
@@ -173,13 +201,20 @@ struct RecordResultView: View {
     }
     
     func saveRecord() {
+        // Check if the coffee time is before the next allowed coffee time
+        if let nextTime = nextAllowedCoffeeTime, coffeeRecord.time < nextTime {
+            alertTitle = "Too Soon!"
+            alertMessage = "You can only add a coffee record after \(formattedTime(from: nextTime))."
+            showAlert = true
+            return
+        }
         // Tambahkan nilai kafein baru ke total kafein hari ini saat penyimpanan
         let updatedCaffeineToday = totalCaffeineToday + coffeeRecord.caffeineCoffee
         
         if updatedCaffeineToday > 200 {
             alertTitle = "Warning"
             alertMessage = "The total caffeine consumption exceeds the safe limit."
-            showAlert = true
+            showConfirmationAlert = true
         } else {
             let newRecord = coffeeRecord
             context.insert(newRecord)
@@ -195,6 +230,13 @@ struct RecordResultView: View {
                 showAlert = true
             }
         }
+    }
+    
+    func formattedTime(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.timeZone = TimeZone.current
+        return formatter.string(from: date)
     }
     
     func dismissToRoot() {
