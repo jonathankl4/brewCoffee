@@ -19,15 +19,12 @@ struct DashboardView: View {
     @EnvironmentObject var caffeineData: CaffeineManager
     
     var body: some View {
-        // Filter record yang waktunya hari ini
         let todayRecords = coffeeRecord.filter { record in
             Calendar.current.isDateInToday(record.date)
         }
         
-        // Menghitung jumlah kopi hari ini
         let totalCoffeesToday = todayRecords.count
         
-        // Mendapatkan waktu terakhir minum kopi
         let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time
         
         

@@ -5,111 +5,6 @@
 //  Created by MacBook Air on 17/09/24.
 //
 
-//import SwiftUI
-//import SwiftData
-//import Charts
-//
-//struct GraphCaffeine: View {
-//    @Query var coffeeRecord: [RecordsCoffee]
-//    
-//    // Menambahkan DateFormatter sebagai properti statis
-//    static let dateFormatter: DateFormatter = {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm"
-//        return formatter
-//    }()
-//    
-//    func generateCaffeineData(startingCaffeine: Double, reduction: Double, startTime: Date) -> [(Date, Double)] {
-//        var data: [(Date, Double)] = []
-//        var caffeine = startingCaffeine
-//        var currentTime = startTime
-//
-//        while caffeine > 0 {
-//            data.append((currentTime, caffeine))
-//            caffeine -= reduction * (60 * 3)  // Pengurangan per menit untuk setiap 3 jam
-//            // Tambahkan 3 jam pada waktu saat ini
-//            currentTime = Calendar.current.date(byAdding: .hour, value: 3, to: currentTime) ?? currentTime
-//        }
-//        
-//        // Menambahkan nilai akhir saat kafein mencapai 0
-//        if caffeine <= 0 {
-//            data.append((currentTime, 0))
-//        }
-//
-//        return data
-//    }
-//    
-//    let caffeineReductionPerMinute: Double = 0.2301  // Pengurangan per menit
-//    let threshold: Double = 100
-//
-//    var body: some View {
-//        // Filter record yang waktunya hari ini
-//        let todayRecords = coffeeRecord.filter { record in
-//            Calendar.current.isDateInToday(record.date)
-//        }
-//        
-//        // Menghitung total kafein hari ini
-//        let totalCaffeineToday = todayRecords.reduce(0) { total, record in
-//            total + record.caffeineCoffee
-//        }
-//        
-//        // Mendapatkan waktu terakhir minum kopi
-//        let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time ?? Date()
-//        
-//        // Menghasilkan data untuk grafik kafein dengan pengurangan per menit
-//        let caffeineData = generateCaffeineData(
-//            startingCaffeine: totalCaffeineToday,
-//            reduction: caffeineReductionPerMinute,
-//            startTime: lastCoffeeTime
-//        )
-//        
-//        Chart {
-//            ForEach(caffeineData, id: \.0) { time, caffeine in
-//                BarMark(
-//                    x: .value("Time", time),
-//                    y: .value("Caffeine", caffeine)
-//                )
-//                .foregroundStyle(Color.warnacoklat)
-//                .clipShape(RoundedRectangle(cornerRadius: 5))
-//            }
-//            
-//            RuleMark(
-//                y: .value("Threshold", threshold)
-//            )
-//            .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
-//            .foregroundStyle(Color.secondary)
-//            .annotation(position: .topTrailing) {
-//                Text("Threshold \(Int(threshold)) mg")
-//                    .font(.caption)
-//                    .foregroundColor(.red)
-//                    .padding(5)
-//                    .background(Color.white.opacity(0.7))
-//                    .cornerRadius(5)
-//            }
-//        }
-//        .chartXAxis {
-//            AxisMarks(values: .stride(by: .hour, count: 3)) { value in
-//                AxisGridLine()
-//                AxisTick()
-//                AxisValueLabel {
-//                    if let date = value.as(Date.self) {
-//                        Text(date, format: .dateTime.hour(.twoDigits(amPM: .omitted)))
-//                    }
-//                }
-//            }
-//        }
-//        .chartScrollableAxes(.horizontal)
-//        .chartXVisibleDomain(length: 4)
-//        .frame(height: 300)
-//        .padding()
-//        .chartYScale(domain: 0...totalCaffeineToday)
-//        .chartYAxis {
-//            AxisMarks(position: .leading, values: .stride(by: 50))
-//        }
-//    }
-//}
-
-
 import SwiftUI
 import SwiftData
 import Charts
@@ -214,13 +109,12 @@ struct GraphCaffeine: View {
         var currentCaffeine = initialCaffeine
         var belowThresholdDate: Date? = nil
         
-        for i in 0..<72 {  // Data for every 20 minutes over 24 hours
-            let date = startDate.addingTimeInterval(Double(i) * 1200) // 1200 seconds = 20 minutes
-            currentCaffeine = max(0, currentCaffeine - 0.2301 * 20) // Decrease by 0.2301 per minute for 20 minutes
-            
-            // Set the belowThresholdDate only once when caffeine first drops below 75 mg
+        for i in 0..<72 {
+            let date = startDate.addingTimeInterval(Double(i) * 1200)
+            currentCaffeine = max(0, currentCaffeine - 0.2301 * 20)
+ 
             if belowThresholdDate == nil && currentCaffeine < 75 {
-                belowThresholdDate = date // Set only once when currentCaffeine goes below 75 mg
+                belowThresholdDate = date
             }
             
             dataArray.append((date: date, level: currentCaffeine))

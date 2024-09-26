@@ -104,14 +104,14 @@ struct splashscreen: View {
     @State private var size: CGSize?
 
     var body: some View {
-        let gifName = "kucing" // Nama file GIF tanpa ekstensi ".gif"
+        let gifName = "kucing"
 
                 if let path = Bundle.main.path(forResource: gifName, ofType: "gif"),
                    let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                     GifImage(type: .local(gifName)) { _, image in
                         size = image?.size
                     }
-                    .frame(width: size?.width ?? 200, height: size?.height ?? 200) // Set default ukuran jika nil
+                    .frame(width: size?.width ?? 200, height: size?.height ?? 200)
                 } else {
                     Text("GIF tidak ditemukan")
                 }

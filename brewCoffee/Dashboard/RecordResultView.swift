@@ -33,24 +33,20 @@ struct RecordResultView: View {
         return formatter.string(from: coffeeRecord.time)
     }
     
-    // Menghitung total kafein hari ini + kafein kopi yang akan ditambahkan (preview)
     var totalCaffeinePreview: Double {
         let todayRecords = coffeeToday.filter { record in
             Calendar.current.isDateInToday(record.date)
         }
         
         if todayRecords.isEmpty {
-            // Jika belum ada record hari ini, tampilkan nilai kafein dari kopi yang akan ditambahkan
             return coffeeRecord.caffeineCoffee
         } else {
-            // Jika ada, hitung total kafein hari ini + kafein dari kopi yang akan ditambahkan
             return todayRecords.reduce(0) { total, record in
                 total + caffeineData.currentCaffeine
             } + coffeeRecord.caffeineCoffee
         }
     }
     
-    // Menghitung total kafein hari ini tanpa kafein dari kopi yang akan ditambahkan
     var totalCaffeineToday: Double {
         let todayRecords = coffeeToday.filter { record in
             Calendar.current.isDateInToday(record.date)
@@ -66,13 +62,10 @@ struct RecordResultView: View {
             Calendar.current.isDateInToday(record.date)
         }
         
-        // Sort records by time and get the most recent one
         if let lastCoffeeTime = todayRecords.sorted(by: { $0.time > $1.time }).first?.time {
-            // Add 3 hours to the last coffee time to get the next allowed coffee time
             return Calendar.current.date(byAdding: .hour, value: 5, to: lastCoffeeTime)
         }
         
-        // If there are no coffee records today, allow coffee now
         return nil
     }
     
@@ -147,10 +140,8 @@ struct RecordResultView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         if totalCaffeineToday > 200 {
-                            // Tampilkan alert konfirmasi jika total kafein melebihi batas
                             showConfirmationAlert = true
                         } else {
-                            // Simpan record langsung jika tidak melebihi batas
                             saveRecord()
                         }
                     }) {
@@ -201,14 +192,12 @@ struct RecordResultView: View {
     }
     
     func saveRecord() {
-        // Check if the coffee time is before the next allowed coffee time
         if let nextTime = nextAllowedCoffeeTime, coffeeRecord.time < nextTime {
             alertTitle = "Too Soon!"
             alertMessage = "You can only add a coffee record after \(formattedTime(from: nextTime))."
             showAlert = true
             return
         }
-        // Tambahkan nilai kafein baru ke total kafein hari ini saat penyimpanan
         let updatedCaffeineToday = totalCaffeineToday + coffeeRecord.caffeineCoffee
         
         if updatedCaffeineToday > 200 {

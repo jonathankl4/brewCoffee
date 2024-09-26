@@ -140,7 +140,6 @@ struct HistoryLogView: View {
         do {
             try context.save()
         } catch {
-            // Tangani error saat menghapus
             print("Failed to delete record: \(error)")
         }
     }
