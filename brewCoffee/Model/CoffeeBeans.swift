@@ -36,7 +36,7 @@ extension CoffeeBeans {
         CoffeeBeans(
             nameCoffee: "Kopi Luwak",
             titleArticle: "Kopi Luwak: A Safe Choice for People with Acid Reflux",
-            imgArticle: "luwakArticle", 
+            imgArticle: "LuwakArticle",
             iconCoffee: "luwakIcon",
             article: """
                         Kopi Luwak, also known as civet coffee, has gained a reputation as one of the world’s most unique and luxurious coffees. Produced from beans that have been digested and excreted by the Asian palm civet, this coffee offers a distinct flavor profile characterized by its smoothness and rich aroma. While many enjoy its unique taste, those with acid reflux or gastroesophageal reflux disease (GERD) often wonder if Kopi Luwak is a safe option for them.
@@ -98,7 +98,7 @@ extension CoffeeBeans {
         CoffeeBeans(
             nameCoffee: "Decaf Coffee",
             titleArticle: "Decaf Coffeee: Benefits, Health, and Risks",
-            imgArticle: "decafArticle",
+            imgArticle: "DecafArticle",
             iconCoffee: "decafIcon",
             article: """
                         Decaf coffee, short for decaffeinated coffee, is a popular alternative for coffee lovers who want to enjoy the taste of coffee without the stimulating effects of caffeine. Through various methods like water processing, carbon dioxide extraction, or chemical solvents, most of the caffeine content is removed from the beans, typically leaving just 1-2% of the original caffeine. This makes decaf a great option for individuals who are sensitive to caffeine, including those suffering from acid reflux or gastroesophageal reflux disease (GERD).
